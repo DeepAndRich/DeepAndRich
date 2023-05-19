@@ -54,7 +54,6 @@ def save_deposit_products(request):
 
 @api_view(['GET'])
 def deposit_products(request):
-
     deposit_products = DepositProducts.objects.all()
     deposit_options = DepositOptions.objects.all()
     products_data = DepositProductsSerializer(deposit_products, many=True)
