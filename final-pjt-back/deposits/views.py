@@ -41,16 +41,39 @@ def save_deposit_products(request):
 
     options = response.get('result').get('optionList')
     for option in options:
-        fin_prdt_cd = option.get('fin_prdt_cd')
-        deposit_product = DepositProducts.objects.get(fin_prdt_cd=fin_prdt_cd)
+        for key in option.keys():
+            if option.get(key) is None:
+                option[key] = -1
+        deposit_product = DepositProducts.objects.get(fin_prdt_cd=option['fin_prdt_cd'])
         serializer = DepositOptionsSerializer(data=option)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(fin_prdt_cd=deposit_product.pk)
+            serializer.save(fin_prdt_cd=deposit_product)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 
 @api_view(['GET'])
 def deposit_products(request):
-    if request.method == "GET":
-        products = DepositProducts.objects.all()
-        serializer = DepositProductsSerializer(products, many=True)
-        return Response(serializer.data)
+
+    deposit_products = DepositProducts.objects.all()
+    deposit_options = DepositOptions.objects.all()
+    products_data = DepositProductsSerializer(deposit_products, many=True)
+    options_data = DepositOptionsSerializer(deposit_options, many=True)
+    # print(products_data)
+    # print('----------------')
+    # return JsonResponse({
+    # 'deposit_products': products_data.data,
+    # 'deposit_options': options_data.data
+    # })
+
+    for product in products_data.data:
+        product_id = product["id"]
+        for option in options_data.data:
+          
+            if option["fin_prdt_cd"] == product_id:
+                matching_options = option
+                product.setdefault("deposit_options", []).append(matching_options)
+    
+    return JsonResponse({
+        'deposit_products': products_data.data,
+    }, json_dumps_params={'ensure_ascii': False})
