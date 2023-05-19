@@ -15,6 +15,7 @@ class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField(required=allauth_account_settings.EMAIL_REQUIRED)
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
+    user_id = serializers.CharField(max_length=30)
     nickname = serializers.CharField(max_length=50)
     age = serializers.IntegerField()
     asset = serializers.IntegerField()
@@ -50,6 +51,7 @@ class RegisterSerializer(serializers.Serializer):
             'username': self.validated_data.get('username', ''),
             'password1': self.validated_data.get('password1', ''),
             'email': self.validated_data.get('email', ''),
+            'user_id' : self.validated_data.get('user_id',''),
             'nickname': self.validated_data.get('nickname', ''),
             'age': self.validated_data.get('age', ''),
             'asset': self.validated_data.get('asset', ''),
