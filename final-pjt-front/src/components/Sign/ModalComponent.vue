@@ -28,6 +28,7 @@ export default {
 			this.showModal = false;
 			document.removeEventListener('keydown', this.handleEscapeKey);
 			this.$store.commit('showLogin', false);
+			this.$store.commit('showSignUp', false);
 		},
 		handleEscapeKey(event) {
 			if (event.key === 'Escape') {

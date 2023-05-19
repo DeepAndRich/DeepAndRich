@@ -4,6 +4,9 @@
 		<ModalComponent :modalState="showLogin">
 			<LoginComponent />
 		</ModalComponent>
+		<ModalComponent :modalState="showSignUp">
+			<SignUpComponent />
+		</ModalComponent>
 
 		<router-view />
 	</div>
@@ -13,16 +16,21 @@
 import NavBar from './components/Navbar/NavBar.vue';
 import ModalComponent from './components/Sign/ModalComponent.vue';
 import LoginComponent from './components/Sign/LoginComponent.vue';
+import SignUpComponent from './components/Sign/SignUpComponent.vue';
 
 export default {
 	components: {
 		NavBar,
 		ModalComponent,
 		LoginComponent,
+		SignUpComponent,
 	},
 	computed: {
 		showLogin() {
 			return this.$store.state.showLoginState;
+		},
+		showSignUp() {
+			return this.$store.state.showSignUpState;
 		},
 	},
 };

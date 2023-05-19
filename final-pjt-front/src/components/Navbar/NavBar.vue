@@ -13,7 +13,10 @@
 			</div>
 			<div class="flex items-center">
 				<button class="mx-2 font-bold" @click="loginClick">로그인</button>
-				<button class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg">
+				<button
+					class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg"
+					@click="signUpClick"
+				>
 					회원가입
 				</button>
 			</div>
@@ -59,6 +62,10 @@ export default {
 			// console.log(this.$store.state.showLoginState);
 			this.$store.commit('showLogin', true);
 			console.log('로그인 클릭');
+		},
+		signUpClick() {
+			this.$store.commit('showSignUp', true);
+			console.log('회원가입 클릭');
 		},
 	},
 };

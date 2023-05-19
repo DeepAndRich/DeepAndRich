@@ -1,13 +1,17 @@
 // tailwind.config.js
+const colors = require('tailwindcss/colors');
 module.exports = {
 	purge: ['./public/**/*.html', './src/**/*.vue'],
 	darkMode: false, // or 'media' or 'class'
 	theme: {
-		colors: {
-			themeyellow: '#FFE14E',
-			themeBlue: '#38BDF8',
+		colors,
+		extend: {
+			// colors,
+			colors: {
+				themeyellow: '#FFE14E',
+				themeBlue: '#38BDF8',
+			},
 		},
-		extend: {},
 	},
 	variants: {
 		extend: {},

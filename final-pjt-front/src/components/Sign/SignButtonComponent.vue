@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<button class="signBtn bg-themeBlue my-3.5 font-medium tracking-widest">
+		<button
+			class="signBtn my-3.5 font-medium tracking-widest hover:bg-sky-500 focus:outline-none focus:ring focus:ring-themeBlue"
+		>
 			{{ buttonName }}
 		</button>
 	</div>
@@ -22,5 +24,6 @@ export default {
 	border-radius: 5px;
 	color: #fff;
 	font-size: 20px;
+	background-color: #38bdf8;
 }
 </style>

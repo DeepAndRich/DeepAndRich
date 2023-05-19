@@ -7,6 +7,7 @@
 			:value="value"
 			@input="$emit('input', $event.target.value)"
 		/>
+		<slot></slot>
 	</div>
 </template>
 
@@ -36,13 +37,8 @@ export default {
 	border: 0.5px solid #38bdf8;
 	border-radius: 5px;
 	padding-left: 0.5rem;
+	padding-right: 1rem;
 }
-/* .signItem::placeholder {
-	padding-left: 1rem;
-} */
-/* .signItem:focus-visible {
-	border: 2px solid wheat;
-} */
 .signItem:focus {
 	outline: none;
 	border-color: #38bdf8;

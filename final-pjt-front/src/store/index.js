@@ -17,6 +17,9 @@ export default new Vuex.Store({
 		showLogin(state, payload) {
 			state.showLoginState = payload;
 		},
+		showSignUp(state, payload) {
+			state.showSignUpState = payload;
+		},
 	},
 	actions: {},
 	modules: {},
