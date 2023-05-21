@@ -83,3 +83,14 @@ def comment_detail(request, comment_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+@api_view(['POST'])
+def likes(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    if article.like_users.filter(pk=request.user.pk).exixts():
+        article.like_users.remove(request.user)
+        message = 'disliked'
+    else:
+        article.like_users.add(request.user)
+        message = 'liked'
+    return Response({'message': message})
