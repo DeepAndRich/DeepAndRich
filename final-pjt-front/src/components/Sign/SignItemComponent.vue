@@ -2,6 +2,7 @@
 	<div>
 		<input
 			class="signItem my-2.5"
+			v-if="!this.$slots.default"
 			:type="type"
 			:placeholder="placeHolder"
 			:value="value"
@@ -30,7 +31,7 @@ export default {
 
 <style>
 .signItem {
-	width: 350px;
+	width: 355px;
 	height: 44px;
 	border-radius: 5px;
 	/* background: rgba(217, 217, 217, 0.4); */

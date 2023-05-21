@@ -21,11 +21,12 @@
 			<SignItem v-model="userName" placeHolder="이름" />
 			<SignItem v-model="userNickName" placeHolder="닉네임" />
 			<SignItem v-model="userAge" placeHolder="나이" type="number" />
-			<SignItem v-model="userRegion" placeHolder="지역" />
-			<LocationSelect v-model="userRegion" />
-
+			<div class="signItem flex items-center justify-around my-2.5">
+				<span>지역</span>
+				<LocationSelect v-model="userRegion" />
+			</div>
 			<SignItem v-model="userAssets" placeHolder="현금자산">
-				<select v-model="userAssets" class="signItem my-2.5">
+				<select v-model="userAssets" class="signItem my-2.5 px-2">
 					<option value="">보유하신 현금자산을 선택해주세요</option>
 					<option value="1000">1,000만원 이하</option>
 					<option value="5000">1,000만원 이상 5,000만원 이하</option>
@@ -64,10 +65,7 @@ export default {
 			userName: '',
 			userNickName: '',
 			userAge: '',
-			userRegion: {
-				selectedProvince: '',
-				selectedDistrict: '',
-			},
+			userRegion: '',
 			userAssets: '',
 		};
 	},
