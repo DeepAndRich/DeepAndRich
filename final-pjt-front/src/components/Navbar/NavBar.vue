@@ -47,11 +47,11 @@ export default {
 					title: '커뮤니티',
 				},
 				{
-					URL: '/bank',
+					URL: '/others',
 					title: '은행',
 				},
 				{
-					URL: '/exchange',
+					URL: '/others',
 					title: '환율',
 				},
 			],

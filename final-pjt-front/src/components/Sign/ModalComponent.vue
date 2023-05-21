@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="transition-opacity">
 		<div v-if="getShowModal" class="modal" @click.self="closeModal">
 			<div class="modal-content">
 				<slot> </slot>
@@ -50,6 +50,7 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 10000;
 }
 
 /* .modal-content {
