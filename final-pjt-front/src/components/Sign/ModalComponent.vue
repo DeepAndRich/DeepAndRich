@@ -1,5 +1,5 @@
 <template>
-	<div class="transition-opacity">
+	<div>
 		<div v-if="getShowModal" class="modal" @click.self="closeModal">
 			<div class="modal-content">
 				<slot> </slot>

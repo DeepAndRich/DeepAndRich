@@ -1,5 +1,5 @@
 <template>
-	<div class="py-11 px-14 w-full h-36 mx-auto z-30">
+	<div class="py-11 px-14 w-full h-36 mx-auto bg-white z-30">
 		<nav
 			class="text-xl flex box-content p-0 flex-wrap items-center justify-between"
 		>

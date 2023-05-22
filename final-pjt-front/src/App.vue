@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import NavBar from './components/Navbar/NavBar.vue';
 import ModalComponent from './components/Sign/ModalComponent.vue';
 import LoginComponent from './components/Sign/LoginComponent.vue';
@@ -32,6 +33,26 @@ export default {
 		showSignUp() {
 			return this.$store.state.showSignUpState;
 		},
+	},
+	created() {
+		for (let i = 0; i < 4; i++) {
+			axios
+				.get(`http://127.0.0.1:8000/savings/saving-products/`)
+				.then(res => {
+					this.$store.commit('saveMainSavings', res.data);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+			axios
+				.get(`http://127.0.0.1:8000/deposits/deposit-products/`)
+				.then(res => {
+					this.$store.commit('saveMainDeposit', res.data);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
 	},
 };
 </script>
