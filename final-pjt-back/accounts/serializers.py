@@ -44,7 +44,11 @@ class RegisterSerializer(serializers.Serializer):
         return data
 
     def custom_signup(self, request, user):
-        pass
+        user.nickname = self.cleaned_data.get('nickname', None)
+        user.age = self.cleaned_data.get('age', None)
+        user.asset = self.cleaned_data.get('asset', None)
+        user.region = self.cleaned_data.get('region', None)
+        user.save()
 
     def get_cleaned_data(self):
         return {
@@ -80,3 +84,4 @@ class RegisterSerializer(serializers.Serializer):
         self.custom_signup(request, user)
         setup_user_email(request, user, [])
         return user
+

@@ -10,9 +10,11 @@ class SavingProducts(models.Model):
 
 
 
+
 class SavingOptions(models.Model):
     fin_prdt_cd = models.ForeignKey(SavingProducts, on_delete=models.CASCADE)
     intr_rate_type_nm = models.CharField(max_length=100)
     intr_rate = models.FloatField()
     intr_rate2 = models.FloatField()
     save_trm = models.TextField()
+    rsrv_type_nm = models.TextField()

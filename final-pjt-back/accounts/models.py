@@ -8,7 +8,8 @@ class User(AbstractUser):
     asset = models.IntegerField()
     region = models.CharField(max_length=20)
     personal_type = models.CharField(max_length=10, null=True)
- 
+    sub_proudct = models.CharField(max_length=50, null=True)
+
 # 상속 받아서 구현해보기
 from allauth.account.adapter import DefaultAccountAdapter
 
@@ -58,7 +59,29 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.set_unusable_password()
         self.populate_username(request, user)
         if commit:
-            # Ability not to commit makes it easier to derive from
-            # this adapter by adding
+            # 비밀번호 수정
+            if 'password1' in data:
+                password = data['password1']
+                user.set_password(password)
+            
+            # 자산 수정
+            if 'asset' in data:
+                asset = data['asset']
+                user.asset = asset
+
+            # 나이 수정
+            if 'age' in data:
+                age = data['age']
+                user.age = age
+            
+            # 닉네임 수정
+            if 'nickname' in data:
+                nickname = data['nickname']
+                user.nickname = nickname
+            
+            # 가입상품 항목 수정
+            if 'personal_type' in data:
+                personal_type = data['personal_type']
+                user.personal_type = personal_type
             user.save()
         return user

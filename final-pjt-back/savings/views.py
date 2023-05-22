@@ -7,7 +7,7 @@ from rest_framework import status
 import requests
 from django.shortcuts import get_object_or_404
 from .models import SavingProducts, SavingOptions
-from .serializers import SavingProductsSerializer, SavingOptionsSerializer
+from .serializers import SavingProductsSerializer, SavingOptionsSerializer, SavingOptionsProductsSerializer
 from django.db.models import Max
 
 BASE_URL = 'http://finlife.fss.or.kr/finlifeapi/'
@@ -53,21 +53,56 @@ def save_saving_products(request):
 
 
 @api_view(['GET'])
-def saving_products(request):
-    saving_products = SavingProducts.objects.all()
-    saving_options = SavingOptions.objects.all()
-    products_data = SavingProductsSerializer(saving_products, many=True)
-    options_data = SavingOptionsSerializer(saving_options, many=True)
-   
+def saving_products(request, month_pk):
+  
+    a1 = SavingOptions.objects.select_related('fin_prdt_cd')
+    a2 = a1.filter(save_trm=month_pk).order_by('-intr_rate')
+    a3 = SavingOptions.objects.all()
 
-    for product in products_data.data:
-        product_id = product["id"]
-        for option in options_data.data:
-          
-            if option["fin_prdt_cd"] == product_id:
-                matching_options = option
-                product.setdefault("deposit_options", []).append(matching_options)
+     # 직렬화된 a2 데이터 생성
+    a2_data = SavingOptionsProductsSerializer(a2, many=True).data
+
+
+    return JsonResponse(a2_data, safe=False)
+ 
+@api_view(['GET'])
+def freestyle(request):
+    a1 = SavingOptions.objects.select_related('fin_prdt_cd')
+    a2 = a1.filter(save_trm=6).order_by('-intr_rate')[:10]
+    a3 = a1.filter(save_trm=12).order_by('-intr_rate')[:10]
+
+    a2_data = SavingOptionsProductsSerializer(a2, many=True).data
+    a3_data = SavingOptionsProductsSerializer(a3, many=True).data
+    combined_data = a2_data + a3_data
+    sorted_data = sorted(combined_data, key=lambda x: x['intr_rate'], reverse=True)
     
-    return JsonResponse({
-        'saving_products': products_data.data,
-    }, json_dumps_params={'ensure_ascii': False})
+    unique_data = []
+    unique_prdt_cd = []
+    for item in sorted_data:
+        if item['fin_prdt_cd'] not in unique_prdt_cd:
+            unique_data.append(item)
+            unique_prdt_cd.append(item['fin_prdt_cd'])
+
+    return JsonResponse(sorted_data[:5], safe=False)
+
+
+
+@api_view(['GET'])
+def breaststroke(request):
+    a1 = SavingOptions.objects.select_related('fin_prdt_cd')
+    a2 = a1.filter(save_trm=24).order_by('-intr_rate')[:10]
+    a3 = a1.filter(save_trm=36).order_by('-intr_rate')[:10]
+
+    a2_data = SavingOptionsProductsSerializer(a2, many=True).data
+    a3_data = SavingOptionsProductsSerializer(a3, many=True).data
+    combined_data = a2_data + a3_data
+    sorted_data = sorted(combined_data, key=lambda x: x['intr_rate'], reverse=True)
+
+    unique_data = []
+    unique_prdt_cd = []
+    for item in sorted_data:
+        if item['fin_prdt_cd'] not in unique_prdt_cd:
+            unique_data.append(item)
+            unique_prdt_cd.append(item['fin_prdt_cd'])
+
+    return JsonResponse(sorted_data[:5], safe=False)
