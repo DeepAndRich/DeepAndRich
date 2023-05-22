@@ -11,8 +11,6 @@ class SavingProductsSerializer(serializers.ModelSerializer):
 
 class SavingOptionsSerializer(serializers.ModelSerializer):
     # fin_prdt_cd = serializers.IntegerField(read_only=True)
-   
-
     class Meta:
         model = SavingOptions
         fields = '__all__'
