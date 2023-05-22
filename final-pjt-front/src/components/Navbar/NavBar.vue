@@ -1,5 +1,5 @@
 <template>
-	<div class="py-11 px-14 w-full h-36 mx-auto">
+	<div class="py-11 px-14 w-full h-36 mx-auto z-30">
 		<nav
 			class="text-xl flex box-content p-0 flex-wrap items-center justify-between"
 		>
@@ -12,8 +12,11 @@
 				</div>
 			</div>
 			<div class="flex items-center">
-				<button class="mx-2 font-bold">로그인</button>
-				<button class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg">
+				<button class="mx-2 font-bold" @click="loginClick">로그인</button>
+				<button
+					class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg"
+					@click="signUpClick"
+				>
 					회원가입
 				</button>
 			</div>
@@ -44,15 +47,26 @@ export default {
 					title: '커뮤니티',
 				},
 				{
-					URL: '/bank',
+					URL: '/others',
 					title: '은행',
 				},
 				{
-					URL: '/exchange',
+					URL: '/others',
 					title: '환율',
 				},
 			],
 		};
+	},
+	methods: {
+		loginClick() {
+			// console.log(this.$store.state.showLoginState);
+			this.$store.commit('showLogin', true);
+			console.log('로그인 클릭');
+		},
+		signUpClick() {
+			this.$store.commit('showSignUp', true);
+			console.log('회원가입 클릭');
+		},
 	},
 };
 </script>
