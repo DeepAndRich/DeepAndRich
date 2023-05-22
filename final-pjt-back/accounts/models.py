@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
+    realname = models.CharField(max_length=30)
     nickname = models.CharField(max_length=50)
     age = models.IntegerField()
     asset = models.IntegerField()
@@ -30,6 +31,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         age = data.get("age")
         asset = data.get("asset")
         region = data.get("region")
+        realname = data.get("user_id")
         
 
         user_email(user, email)
@@ -47,6 +49,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.asset = asset
         if region:
             user_field(user, "region", region)
+        if realname:
+            user_field(user, "user_id", user_id)
      
         if "password1" in data:
             user.set_password(data["password1"])

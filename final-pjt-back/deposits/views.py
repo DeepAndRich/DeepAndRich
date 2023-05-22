@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 import requests
 from django.shortcuts import get_object_or_404
-from .models import DepositProducts
-from .serializers import DepositProductsSerializer
+from .models import DepositProducts, DepositOptions
+from .serializers import DepositProductsSerializer, DepositOptionsSerializer
 from django.db.models import Max
 
 BASE_URL = 'http://finlife.fss.or.kr/finlifeapi/'
@@ -17,45 +17,16 @@ API_KEY = settings.API_KEY
 
 
 # Create your views here.
-# @api_view(['GET'])
-# def save_deposit_products(request):
-#     URL = BASE_URL + 'depositProductsSearch.json'
-#     params = {
-#         'auth': API_KEY,
-#         'topFinGrpNo' : '020000',
-#         'pageNo' : 1
-#     }
-#     response = requests.get(URL, params=params).json()
-#     # return JsonResponse({'response':response})
-#     products = response.get('result').get('baseList')
-#     for product in products:
-#         serializer = DepositProductsSerializer(data=product)
-#         fin_prdt_cd = product['fin_prdt_cd']
-#         instance, created = DepositProducts.objects.get_or_create(fin_prdt_cd=fin_prdt_cd, defaults=product)
-#         if created:
-#             serializer = DepositProductsSerializer(instance, data=product)
-#             serializer.save()
-#     # return Response(serializer.data, status=status.HTTP_200_OK)
-
-#     options = response.get('result').get('optionList')
-#     for option in options:
-#         fin_prdt_cd = option.get('fin_prdt_cd')
-#         deposit_product = DepositProducts.objects.get(fin_prdt_cd=fin_prdt_cd)
-#         serializer = DepositOptionsSerializer(data=option)
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save(fin_prdt_cd=deposit_product)
-#     return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 @api_view(['GET'])
 def save_deposit_products(request):
     URL = BASE_URL + 'depositProductsSearch.json'
     params = {
         'auth': API_KEY,
-        'topFinGrpNo': '020000',
-        'pageNo': 1
+        'topFinGrpNo' : '020000',
+        'pageNo' : 1
     }
     response = requests.get(URL, params=params).json()
-
+    # return JsonResponse({'response':response})
     products = response.get('result').get('baseList')
     for product in products:
         product_data = {
@@ -67,18 +38,41 @@ def save_deposit_products(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
+
     options = response.get('result').get('optionList')
     for option in options:
-        option_data = {
-            'fin_prdt_cd': option.get('fin_prdt_cd'),
-            'intr_rate_type_nm': option.get('intr_rate_type_nm'),
-            'intr_rate': option.get('intr_rate'),
-            'intr_rate2': option.get('intr_rate2'),
-            'save_trm': option.get('save_trm')
-        }
-        deposit_product = DepositProducts.objects.get(fin_prdt_cd=option_data['fin_prdt_cd'])
-        serializer = DepositProductsSerializer(data=option_data)
+        for key in option.keys():
+            if option.get(key) is None:
+                option[key] = -1
+        deposit_product = DepositProducts.objects.get(fin_prdt_cd=option['fin_prdt_cd'])
+        serializer = DepositOptionsSerializer(data=option)
         if serializer.is_valid(raise_exception=True):
             serializer.save(fin_prdt_cd=deposit_product)
-
     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+@api_view(['GET'])
+def deposit_products(request):
+    deposit_products = DepositProducts.objects.all()
+    deposit_options = DepositOptions.objects.all()
+    products_data = DepositProductsSerializer(deposit_products, many=True)
+    options_data = DepositOptionsSerializer(deposit_options, many=True)
+    # print(products_data)
+    # print('----------------')
+    # return JsonResponse({
+    # 'deposit_products': products_data.data,
+    # 'deposit_options': options_data.data
+    # })
+
+    for product in products_data.data:
+        product_id = product["id"]
+        for option in options_data.data:
+          
+            if option["fin_prdt_cd"] == product_id:
+                matching_options = option
+                product.setdefault("deposit_options", []).append(matching_options)
+    
+    return JsonResponse({
+        'deposit_products': products_data.data,
+    }, json_dumps_params={'ensure_ascii': False})

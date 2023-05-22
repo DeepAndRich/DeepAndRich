@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import DepositProducts
+from .models import DepositProducts, DepositOptions
 
 class DepositProductsSerializer(serializers.ModelSerializer):
 
@@ -7,9 +7,11 @@ class DepositProductsSerializer(serializers.ModelSerializer):
         model = DepositProducts
         fields = '__all__'
 
-# class DepositOptionsSerializer(serializers.ModelSerializer):
-#     fin_prdt_cd = serializers.IntegerField(read_only=True)
+class DepositOptionsSerializer(serializers.ModelSerializer):
+    # fin_prdt_cd = serializers.IntegerField(read_only=True)
 
-#     class Meta:
-#         model = DepositOptions
-#         fields = '__all__'
+    class Meta:
+        model = DepositOptions
+        fields = '__all__'
+        read_only_fields = ('fin_prdt_cd',)
+

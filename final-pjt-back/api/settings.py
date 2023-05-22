@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'accounts',
     'savings',
     'deposits',
+    'articles',
 
     'rest_framework',
     'corsheaders',
