@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import MainView from '../views/MainView.vue';
+import ProfileView from '@/views/ProfileView';
 import FinanceView from '@/views/FinanceView';
 import OthersView from '@/views/OthersView';
 
@@ -11,6 +12,11 @@ const routes = [
 		path: '/',
 		name: 'mainpage',
 		component: MainView,
+	},
+	{
+		path: '/profile',
+		name: 'profile',
+		component: ProfileView,
 	},
 	{
 		path: '/finance',
