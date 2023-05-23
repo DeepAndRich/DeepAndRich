@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from rest_framework import serializers
+from allauth.account.adapter import DefaultAccountAdapter
 
 class User(AbstractUser):
     realname = models.CharField(max_length=30)
@@ -8,10 +10,10 @@ class User(AbstractUser):
     asset = models.IntegerField()
     region = models.CharField(max_length=20)
     personal_type = models.CharField(max_length=10, null=True)
-    sub_proudct = models.CharField(max_length=50, null=True)
+    sub_prouduct = models.ManyToManyField('self', symmetrical=False, related_name='myproducts')
+    
 
 # 상속 받아서 구현해보기
-from allauth.account.adapter import DefaultAccountAdapter
 
 class CustomAccountAdapter(DefaultAccountAdapter):
     # 기본 코드는 다 그대로 쓰고, save_user 만 오버라이딩 하겠다!
@@ -59,29 +61,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.set_unusable_password()
         self.populate_username(request, user)
         if commit:
-            # 비밀번호 수정
-            if 'password1' in data:
-                password = data['password1']
-                user.set_password(password)
-            
-            # 자산 수정
-            if 'asset' in data:
-                asset = data['asset']
-                user.asset = asset
-
-            # 나이 수정
-            if 'age' in data:
-                age = data['age']
-                user.age = age
-            
-            # 닉네임 수정
-            if 'nickname' in data:
-                nickname = data['nickname']
-                user.nickname = nickname
-            
-            # 가입상품 항목 수정
-            if 'personal_type' in data:
-                personal_type = data['personal_type']
-                user.personal_type = personal_type
+            pass
             user.save()
         return user
+

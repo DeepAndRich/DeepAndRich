@@ -1,10 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    # path('test/', views.test),
+    # path('<int:user_pk>/subscribe/', views.subscribe)
+    path('save-product/<int:fin_prdt_cd>', views.save_product),
 
-    # path('user_update/', views.user_update),
-    path('user_profile/', views.user_profile),
-    # path('login/', views.login),
+ 
 ]

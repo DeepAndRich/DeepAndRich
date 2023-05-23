@@ -1,28 +1,16 @@
 from django.shortcuts import render
-
+from django.shortcuts import get_object_or_404
+from . models import User
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from .serializers import RegisterSerializer
-from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
 
-# @api_view(['GET'])
-# def test(request):
-#     return JsonResponse({ 'message': 'okay' })
+@api_view(['POST'])
+def save_product(request, fin_prdt_cd):
+  User = User.objects.all()
+  fin_prdt_cd = request.get('fin_prdt_cd')
 
-
-
-@api_view(['GET', 'PUT'])
-def user_profile(request):
-
-  if request.method == 'GET':
-      view = UserDetailsView.as_view()
-      response = view(request._request)
-      return response
-  elif request.method == 'PUT':
-    serializer = RegisterSerializer(user, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=400)
-
+  
+# def subscribe(request, user_pk):
+#   User = User.objects.all()
+#   product = User.objects.get(pk=user_pk)
+#   if product != request

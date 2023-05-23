@@ -183,7 +183,14 @@ AUTH_USER_MODEL = 'accounts.User'
 # dj_rest_auth 의 설정
 REST_AUTH = {
     'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',
+    # 'USER_DETAILS_SERIALIZER': 'accounts.serializers.RegisterSerializer'
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer'
 }
+
+# REST_AUTH_SERIALIZER = {
+#     'USER_DETAILS_SERIALIZERS': 'accounts.serializers.CustomUserDetailsSerializer'
+    
+# }
 
 # allauth 의 default adapter 설정
 ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
@@ -192,3 +199,11 @@ SITE_ID = 1
 
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 # 이메일 검증 안함
+
+
+# AUTHENTICATION_BACKENDS = [
+#     # allauth specific authentication methods, such as login by e-mail
+#     'allauth.account.auth_backends.AuthenticationBackend',
+#     # Needed to login by username in Django admin, regardless of allauth
+#     'django.contrib.auth.backends.ModelBackend',
+# ]

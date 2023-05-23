@@ -5,6 +5,8 @@ from allauth.account import app_settings as allauth_account_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from django.utils.translation import gettext_lazy as _
+from .models import User
+
 
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(
@@ -85,3 +87,14 @@ class RegisterSerializer(serializers.Serializer):
         setup_user_email(request, user, [])
         return user
 
+
+
+
+class CustomUserDetailsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'pk','realname','age','nickname','asset','region',
+        )
+        read_only_fields = ('pk',)
