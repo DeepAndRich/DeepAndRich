@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     # path('<int:user_pk>/subscribe/', views.subscribe)
-    path('save-product/<int:fin_prdt_cd>', views.save_product),
+    path('save-product/<int:product_pk>', views.save_product),
 
  
 ]
