@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<ul class="h-max">
+		<ul class="h-max text-left">
+			<div class="modal" v-if="showDetail" @click.self="closeDetail">
+				<BillboardDetail :item="selectedItem" />
+			</div>
 			<BillboardItem
 				v-for="(item, idx) in paginatedItems"
 				:key="item.id"
@@ -8,6 +11,7 @@
 				:tax="selectedTax"
 				:payment="payments"
 				:ranking="idx + 1 + (currentPage - 1) * 10"
+				@click="openDetail(item)"
 			/>
 		</ul>
 		<Pagination
@@ -21,12 +25,14 @@
 <script>
 import BillboardItem from './BillboardItem.vue';
 import Pagination from '@/components/Finance/PaginationComponent.vue';
+import BillboardDetail from './BillboardDetail.vue';
 
 export default {
 	name: 'BillboardList',
 	components: {
 		BillboardItem,
 		Pagination,
+		BillboardDetail,
 	},
 	props: {
 		items: {
@@ -39,8 +45,10 @@ export default {
 	data() {
 		return {
 			currentPage: 1,
-			itemsPerPage: 10, // 페이지당 아이템 수
+			itemsPerPage: 8, // 페이지당 아이템 수
 			ranking: 0,
+			showDetail: false,
+			selectedItem: null,
 		};
 	},
 	computed: {
@@ -59,6 +67,17 @@ export default {
 	methods: {
 		handlePageChange(page) {
 			this.currentPage = page;
+		},
+		openDetail(item) {
+			this.selectedItem = item;
+			this.showDetail = true;
+			console.log('체크');
+		},
+		closeDetail() {
+			this.showDetail = false;
+		},
+		check() {
+			console.log('??');
 		},
 	},
 };

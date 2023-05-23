@@ -1,10 +1,13 @@
 <template>
-	<li class="billBoardItem h-10 my-2.5 flex items-center justify-center">
-		<p class="ranking">{{ ranking }}</p>
-		<p>금리:{{ item.intr_rate }}</p>
-		<p>{{ item.save_trm }}개월</p>
-		<p>{{ calculatedInterest }}원</p>
-		<p>{{ calculateTax }}원</p>
+	<li
+		@click="handleItemClick"
+		class="billBoardItem h-14 my-2.5 flex items-center justify-center"
+	>
+		<p class="w-1/12 ranking text-center">{{ ranking }}</p>
+		<p class="w-2/12 text-center">{{ calculatedInterest }}원</p>
+		<p class="w-2/12 text-center">{{ calculateTax }}원</p>
+		<p class="w-3/12">{{ item.fin_prdt_cd.kor_co_nm }}</p>
+		<p class="w-3/12">{{ item.fin_prdt_cd.fin_prdt_nm }}</p>
 	</li>
 </template>
 
@@ -42,6 +45,10 @@ export default {
 		formatAmount(amount) {
 			return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
+		handleItemClick() {
+			// 클릭 이벤트 처리 로직
+			this.$emit('click', this.item);
+		},
 	},
 };
 </script>
@@ -51,9 +58,10 @@ export default {
 	color: #f97316 !important;
 }
 .billBoardItem p {
-	font-size: 25px;
+	font-size: 24px;
 	color: #fde047;
 	text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
 	margin: 0 2rem 0 2rem;
+	cursor: pointer;
 }
 </style>

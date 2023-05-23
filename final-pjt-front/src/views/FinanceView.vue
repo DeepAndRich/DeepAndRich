@@ -19,7 +19,10 @@
 			<input type="text" v-model="inputMoney" id="inputMoney" />
 			<label for="inputMoney">원</label>
 		</div>
-		<div class="billBoard bg-black rounded-lg mt-10" v-if="selectedProducts">
+		<div
+			class="billBoard bg-black rounded-lg mt-10 p-3"
+			v-if="selectedProducts"
+		>
 			<BillboardTitle :month="selectedMonth" />
 			<BillboardList
 				:items="selectedProducts"
@@ -82,6 +85,7 @@ export default {
 }
 .billBoard {
 	width: 1200px;
+	height: 700px;
 	margin: 0 auto 0 auto;
 	filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, 0.5));
 }

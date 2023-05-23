@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import BillboardItemDetailVue from '@/components/Finance/BillboardItemDetail.vue';
+import BillboardItemDetailVue from '@/components/Finance/BillboardDetail.vue';
 
 export default {
 	name: 'MainView',
