@@ -17,3 +17,4 @@ class DepositOptions(models.Model):
     intr_rate = models.FloatField()
     intr_rate2 = models.FloatField()
     save_trm = models.TextField()
+  
