@@ -1,17 +1,17 @@
 <template>
 	<div>
 		<h1>하이</h1>
-		<LocationSelectVue />
+		<BillboardItemDetailVue />
 	</div>
 </template>
 
 <script>
-import LocationSelectVue from '@/components/LocationSelect.vue';
+import BillboardItemDetailVue from '@/components/Finance/BillboardItemDetail.vue';
 
 export default {
 	name: 'MainView',
 	components: {
-		LocationSelectVue,
+		BillboardItemDetailVue,
 	},
 };
 </script>
