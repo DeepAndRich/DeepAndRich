@@ -10,7 +10,7 @@
 			<p v-if="loginCheck" class="loginCheckText">
 				아이디 또는 비밀번호를 확인해 주세요
 			</p>
-			<div @click="loginClick">
+			<div @click="loginClick" @keyup.enter="loginClick">
 				<SignButton buttonName="로 그 인" />
 			</div>
 			<div class="mt-2">

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import MainView from '../views/MainView.vue';
 import ProfileView from '@/views/ProfileView';
 import FinanceView from '@/views/FinanceView';
+import CommunityView from '@/views/CommunityView';
 import OthersView from '@/views/OthersView';
 
 Vue.use(VueRouter);
@@ -22,6 +23,11 @@ const routes = [
 		path: '/finance',
 		name: 'finance',
 		component: FinanceView,
+	},
+	{
+		path: '/community',
+		name: 'community',
+		component: CommunityView,
 	},
 	{
 		path: '/others',
