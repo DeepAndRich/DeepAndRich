@@ -35,6 +35,9 @@ export default {
 		},
 	},
 	created() {
+		if (this.$store.state.mainDeposit.length > 0) {
+			return;
+		}
 		for (let i = 0; i < 4; i++) {
 			let month = 0;
 			if (i == 0) {

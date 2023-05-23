@@ -61,6 +61,10 @@ export default {
 				})
 				.then(res => {
 					console.log(res);
+					localStorage.setItem('token', res.data.key);
+					this.$store.commit('setToken', res.data.key);
+					this.$store.commit('showLogin', false);
+					this.$router.go(0);
 				})
 				.catch(err => {
 					console.log(err);

@@ -27,6 +27,9 @@ export default new Vuex.Store({
 		},
 	},
 	mutations: {
+		setToken(state, payload) {
+			state.userToken = payload;
+		},
 		showLogin(state, payload) {
 			state.showLoginState = payload;
 		},
