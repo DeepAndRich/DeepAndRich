@@ -6,41 +6,56 @@
 		<div>우대금리: {{ item.intr_rate2 }}</div>
 		<div>금리: {{ item.intr_rate }}</div>
 		<div>{{ item.rsrv_type_nm }}</div>
-		<button @click="check" class="border-2 rounded border-black">
+		<button
+			v-if="checkUser"
+			@click="check"
+			class="border-2 rounded border-black"
+		>
 			상품 가입
 		</button>
-
-		<BillboardDetailItem />
 	</div>
 </template>
 
 <script>
-import BillboardDetailItem from './BillboardDetailItem.vue';
 import axios from 'axios';
-const URL = 'http://127.0.0.1:8000/accounts/save_myproduct/';
+const BASE_URL = 'http://127.0.0.1:8000/accounts/';
+const DEPOSIT_URL = 'save-deposit-myproduct/';
+const SAVING_URL = 'save-saving-myproduct/';
 
 export default {
 	name: 'BillboardDetail',
-	components: {
-		BillboardDetailItem,
-	},
+	components: {},
 	props: {
 		item: Object,
+		finance: String,
 	},
 	data() {
 		return {
-			user: JSON.parse(localStorage.getItem('user')),
+			user: this.$store.getters.getUser,
 			userToken: localStorage.getItem('token'),
+			financeKind: '',
+			URL: '',
 		};
+	},
+	computed: {
+		checkUser() {
+			return this.user;
+		},
 	},
 	methods: {
 		check() {
-			console.log(this.user.pk);
-			console.log(this.userToken);
+			if (this.finance == '정기예금') {
+				this.URL = BASE_URL + DEPOSIT_URL + this.item.fin_prdt_cd.id + '/';
+			} else {
+				this.URL = BASE_URL + SAVING_URL + this.item.fin_prdt_cd.id + '/';
+			}
+			// console.log(this.user.pk);
+			console.log(this.URL);
 			console.log(this.item);
-			console.log(this.item.fin_prdt_cd.id);
+			console.log(this.finance);
+			// console.log(this.item.fin_prdt_cd.id);
 			axios
-				.post(URL + this.item.fin_prdt_cd.id + '/', null, {
+				.post(this.URL, null, {
 					headers: {
 						Authorization: `Token ${this.userToken}`,
 					},

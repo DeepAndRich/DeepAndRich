@@ -2,7 +2,7 @@
 	<div>
 		<ul class="h-max text-left">
 			<div class="modal" v-if="showDetail" @click.self="closeDetail">
-				<BillboardDetail :item="selectedItem" />
+				<BillboardDetail :item="selectedItem" :finance="finance" />
 			</div>
 			<BillboardItem
 				v-for="(item, idx) in paginatedItems"
@@ -41,6 +41,7 @@ export default {
 		},
 		selectedTax: String,
 		payments: String,
+		finance: String,
 	},
 	data() {
 		return {

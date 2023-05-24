@@ -48,6 +48,7 @@
 				:items="selectedProducts"
 				:selectedTax="selectedTax"
 				:payments="inputMoney"
+				:finance="selectedFinance"
 			/>
 		</div>
 		<div v-else>로딩중~</div>

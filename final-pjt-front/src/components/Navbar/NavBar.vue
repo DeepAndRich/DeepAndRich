@@ -24,10 +24,17 @@
 				<div v-else>
 					<button class="mx-2 font-bold" @click="logoutClick">로그아웃</button>
 					<button
+						v-if="!isInProfileCheck"
 						class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg"
 						@click="goToProfile"
 					>
 						프로필 페이지
+					</button>
+					<button
+						v-else
+						class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg"
+					>
+						유저 정보 수정
 					</button>
 				</div>
 			</div>
@@ -58,11 +65,11 @@ export default {
 					title: '커뮤니티',
 				},
 				{
-					URL: '/others',
+					URL: '/banks',
 					title: '은행',
 				},
 				{
-					URL: '/others',
+					URL: '/exchange',
 					title: '환율',
 				},
 			],
@@ -82,7 +89,7 @@ export default {
 			localStorage.removeItem('token');
 			localStorage.removeItem('user');
 			console.log('로그아웃');
-			this.$router.go(0);
+			this.$router.push('/');
 		},
 		goToProfile() {
 			this.$router.push('/profile');
@@ -90,13 +97,11 @@ export default {
 	},
 	computed: {
 		isLogined() {
-			// return localStorage.getItem('token');
 			const token = localStorage.getItem('token');
-			if (token === null) {
-				return false;
-			} else {
-				return true;
-			}
+			return token !== null;
+		},
+		isInProfileCheck() {
+			return this.$store.getters.getProfileCheck;
 		},
 	},
 };

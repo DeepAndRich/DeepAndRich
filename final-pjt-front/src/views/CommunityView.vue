@@ -23,7 +23,7 @@
 				:key="item.id"
 			/>
 		</div>
-		<div v-else>로딩중</div>
+		<div v-else>글이 없습니다.</div>
 		<Pagination
 			:currentPage="currentPage"
 			:totalPages="totalPages"

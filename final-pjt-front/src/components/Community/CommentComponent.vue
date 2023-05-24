@@ -42,7 +42,7 @@ export default {
 	methods: {
 		deleteComment() {
 			axios
-				.delete(URL + this.item.id + 'comments/')
+				.delete(URL + this.item.id + '/')
 				.then(res => {
 					console.log(res);
 					this.$emit('comment-deleted');
