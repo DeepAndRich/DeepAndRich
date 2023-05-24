@@ -1,10 +1,12 @@
 <template>
 	<div class="profileView flex flex-wrap">
+		<!-- <button @click="check">asdfsf</button> -->
 		<div class="w-5/12 flex items-center flex-wrap p-7 text-left">
 			<div class="profileImage w-40 h-40 mb-4"></div>
-			<div class="w-full">베토디베이컨빼주세요</div>
-			<div class="w-full">rlatmddn94@gmail.com</div>
-			<div class="w-full">제주특별자치도 제주시</div>
+			<div class="w-full">{{ user.nickname }}</div>
+			<div class="w-full">{{ user.email }}</div>
+			<div class="w-full">{{ user.region }}</div>
+			<div class="w-full">{{ user.age }}세</div>
 		</div>
 		<div class="w-7/12 flex flex-wrap justify-center items-center p-7">
 			<div>
@@ -26,6 +28,16 @@ export default {
 	name: 'ProfileView',
 	components: {
 		ProfileSwiper,
+	},
+	data() {
+		return {
+			user: JSON.parse(localStorage.getItem('user')),
+		};
+	},
+	methods: {
+		check() {
+			console.log(this.user);
+		},
 	},
 };
 </script>

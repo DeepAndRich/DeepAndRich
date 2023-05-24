@@ -6,12 +6,14 @@
 		<p class="w-1/12 ranking text-center">{{ ranking }}</p>
 		<p class="w-2/12 text-center">{{ calculatedInterest }}원</p>
 		<p class="w-2/12 text-center">{{ calculateTax }}원</p>
-		<p class="w-3/12">{{ item.fin_prdt_cd.kor_co_nm }}</p>
+		<p class="w-2/12">{{ banklist[item.fin_prdt_cd.kor_co_nm].name }}</p>
+		<!-- <p class="w-3/12">{{ item.fin_prdt_cd.kor_co_nm }}</p> -->
 		<p class="w-3/12">{{ item.fin_prdt_cd.fin_prdt_nm }}</p>
 	</li>
 </template>
 
 <script>
+import BANK_LIST from '@/assets/json/banklist.json';
 export default {
 	name: 'BillboardItem',
 	props: {
@@ -23,6 +25,7 @@ export default {
 	data() {
 		return {
 			payments: Number(this.payment),
+			banklist: BANK_LIST.bankList,
 		};
 	},
 	computed: {
@@ -46,6 +49,7 @@ export default {
 			return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		handleItemClick() {
+			// console.log(this.banklist);
 			// 클릭 이벤트 처리 로직
 			this.$emit('click', this.item);
 		},

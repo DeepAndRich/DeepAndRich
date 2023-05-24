@@ -5,7 +5,7 @@
 		<span class="w-1/12">순위</span>
 		<span class="w-2/12">세전이자</span>
 		<span class="w-2/12">세후이자</span>
-		<span class="w-3/12 pr-16">금융기관</span>
+		<span class="w-2/12 pr-16">금융기관</span>
 		<span class="w-3/12 pr-16">상품명</span>
 		<!-- <span class="w-1/12"></span> -->
 	</div>

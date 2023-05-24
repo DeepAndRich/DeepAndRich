@@ -22,7 +22,7 @@
 import LocationSelect from '../LocationSelect.vue';
 
 import SignButton from '../Sign/SignButtonComponent.vue';
-import BANK_LIST from '@/assets/json/banklist.json';
+import BANK_LIST from '@/assets/json/banks.json';
 const KAKAO_API_KEY = 'ff4a60a02a968cbe4a7c906d776763c8';
 
 export default {

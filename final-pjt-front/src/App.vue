@@ -41,6 +41,8 @@ export default {
 		if (this.$store.state.mainDeposit.length > 0) {
 			return;
 		}
+		const savings = {};
+		const deposits = {};
 		for (let i = 0; i < 4; i++) {
 			let month = 0;
 			if (i == 0) {
@@ -55,7 +57,12 @@ export default {
 			axios
 				.get(`http://127.0.0.1:8000/savings/saving-products/${month}/`)
 				.then(res => {
-					this.$store.commit('saveMainSavings', res.data);
+					console.log(res);
+					console.log(month);
+					// this.$store.commit('saveMainSavings', res.data, month);
+					console.log(this.$store.state.MainSavings);
+					savings[month] = res.data;
+					console.log(savings);
 				})
 				.catch(err => {
 					console.log(err);
@@ -63,12 +70,17 @@ export default {
 			axios
 				.get(`http://127.0.0.1:8000/deposits/deposit-products/${month}/`)
 				.then(res => {
-					this.$store.commit('saveMainDeposit', res.data);
+					// const saveMonth = String(month);
+					// this.$store.commit('saveMainDeposit', res.data, saveMonth);
+					deposits[month] = res.data;
+					console.log(deposits);
 				})
 				.catch(err => {
 					console.log(err);
 				});
 		}
+		this.$store.commit('saveMainSavings', savings);
+		this.$store.commit('saveMainDeposit', deposits);
 	},
 };
 </script>
