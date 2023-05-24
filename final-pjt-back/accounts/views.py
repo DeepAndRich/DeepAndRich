@@ -9,19 +9,34 @@ from deposits.models import DepositProducts
 
 
 @api_view(['POST'])
-def save_product(request, product_pk):
-    user_id = request.POST.get('user_id')
-    product = get_object_or_404(DepositProducts, pk=product_pk)
-    
-    user = get_object_or_404(User, pk=user_id)
-    user.sub_product.add(product)
-    # 필요한 경우 응답을 반환할 수 있습니다.
+def save_myproduct(request, product_pk):
+  if request.user.is_authenticated:
+    user = request.user
+    product = DepositProducts.objects.get(pk=product_pk)
+    if user.sub_product.filter(pk=product.pk).exists():
+      user.sub_product.remove(product)
+    else:
+      user.sub_product.add(product)
+
     return JsonResponse({'message': 'Product saved successfully!'})
-  
-# def subscribe(request, user_pk):
-#   User = User.objects.all()
-#   product = User.objects.get(pk=user_pk)
-#   if product != request
+  return JsonResponse({'message' : 'Not allowed'}, status=401)
+
+
+@api_view(['GET'])
+def myproduct(request, user_pk):
+  user = User.objects.get(pk=user_pk)
+  sub_products = user.sub_product.all()
+  print(sub_products)
+  sub_products_list = []
+  for sub_product in sub_products:
+    sub_product_data = {
+      'id' : sub_product.pk,
+      'fin_prdt_cd': sub_product.fin_prdt_cd,
+      'kor_co_nm' : sub_product.kor_co_nm,
+      'fin_prdt_nm': sub_product.fin_prdt_nm,
+    }
+    sub_products_list.append(sub_product_data)
+  return JsonResponse(sub_products_list, safe=False)
 
 
 

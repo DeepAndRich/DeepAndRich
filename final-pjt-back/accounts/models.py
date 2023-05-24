@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from rest_framework import serializers
 from allauth.account.adapter import DefaultAccountAdapter
+from deposits.models import DepositProducts
 
 class User(AbstractUser):
     realname = models.CharField(max_length=30)
@@ -10,7 +11,7 @@ class User(AbstractUser):
     asset = models.IntegerField()
     region = models.CharField(max_length=20)
     personal_type = models.CharField(max_length=10, null=True)
-    sub_prouduct = models.ManyToManyField('self', symmetrical=False, related_name='myproducts')
+    sub_product = models.ManyToManyField(DepositProducts, symmetrical=False, related_name='myproducts')
     
 
 # 상속 받아서 구현해보기

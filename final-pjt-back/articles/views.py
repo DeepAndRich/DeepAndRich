@@ -9,10 +9,10 @@ from rest_framework import status
 from .models import Article, Comment
 from .serializers import ArticleListSerializer, CommentSerializer
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
-from drf_yasg.utils import swagger_auto_schema
+# from drf_yasg.utils import swagger_auto_schema
 
 # Create your views here.
-@swagger_auto_schema(methods=['POST'], request_body=ArticleListSerializer)
+# @swagger_auto_schema(methods=['POST'], request_body=ArticleListSerializer)
 @api_view(['GET', 'POST'])
 def article_list(request):
     if request.method == "GET":
