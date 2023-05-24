@@ -5,7 +5,7 @@
 			<input v-model="content" type="text" />
 		</div>
 		<button @click="modifyToggle">
-			<span v-if="!checkModify">수정</span>
+			<span v-if="!modifyCheck">수정</span>
 			<span v-else>수정취소</span>
 		</button>
 		<button v-if="modifyCheck" @click="modifyComment">저장</button>
@@ -41,6 +41,7 @@ export default {
 				.delete(URL + this.item.id + '/')
 				.then(res => {
 					console.log(res);
+					this.$emit('comment-deleted');
 				})
 				.catch(err => {
 					console.log(err);
@@ -60,6 +61,7 @@ export default {
 				.then(res => {
 					console.log(res);
 					this.modifyCheck = false;
+					this.$emit('comment-modified');
 				})
 				.catch(err => {
 					console.log(err);

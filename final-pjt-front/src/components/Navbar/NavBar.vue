@@ -80,6 +80,7 @@ export default {
 		},
 		logoutClick() {
 			localStorage.removeItem('token');
+			localStorage.removeItem('user');
 			console.log('로그아웃');
 			this.$router.go(0);
 		},

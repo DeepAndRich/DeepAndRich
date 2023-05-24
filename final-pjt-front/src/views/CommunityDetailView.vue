@@ -2,18 +2,55 @@
 	<div>
 		<h1>상세페이지</h1>
 		<div v-if="getArticleCheck">
-			{{ article.title }}
-			{{ article.content }}
+			<div v-if="!modifyCheck">
+				{{ article.title }} <br />{{ article.content }}
+			</div>
+			<div v-else>
+				<div class="w-full">
+					title :
+					<input
+						v-model="article.title"
+						class="border-2"
+						type="text"
+						name="title"
+						maxlength="10"
+					/>
+				</div>
+				<div class="w-full">
+					<div>content</div>
+					<textarea
+						class="bd-black border-2"
+						name="content"
+						cols="70"
+						rows="20"
+						v-model="article.content"
+					></textarea>
+				</div>
+			</div>
+
+			<div>
+				<button @click="modifyToggle">
+					<span v-if="!modifyCheck">수정</span>
+					<span v-else>수정취소</span>
+				</button>
+				<button v-if="modifyCheck" @click="modifyArticle">저장</button>
+				<button v-else @click="deleteArticle">삭제</button>
+			</div>
 		</div>
 		<div v-else>로딩중</div>
-		<div>
+		<hr />
+		<div class="mt-10">
 			댓글자리
 			<div>
 				<input type="text" name="comment" v-model="inputComment" />
 				<button @click="saveComment">댓글 저장</button>
 			</div>
 			<div v-for="item in article.comment_set" :key="item.id">
-				<Comment :item="item" />
+				<Comment
+					:item="item"
+					@comment-deleted="getArticle"
+					@comment-modified="getArticle"
+				/>
 			</div>
 		</div>
 	</div>
@@ -33,13 +70,15 @@ export default {
 		return {
 			article: [],
 			comments: [],
+			title: '',
+			content: '',
+			modifyCheck: false,
 			inputComment: '',
 			userToken: localStorage.getItem('token'),
 		};
 	},
 	created() {
 		this.getArticle();
-		this.getComments();
 	},
 	computed: {
 		getArticleCheck() {
@@ -51,6 +90,9 @@ export default {
 		},
 	},
 	methods: {
+		modifyToggle() {
+			this.modifyCheck = !this.modifyCheck;
+		},
 		getArticle() {
 			axios
 				.get(URL + this.$route.params.id + '/')
@@ -62,12 +104,32 @@ export default {
 					console.log(err);
 				});
 		},
-		getComments() {
+		deleteArticle() {
 			axios
-				.get(URL + this.$route.params.id + '/comments/')
+				.delete(URL + this.$route.params.id + '/delete/')
 				.then(res => {
 					console.log(res);
-					this.comments = res.data;
+					this.$router.push('/community');
+					// this.$emit('comment-deleted');
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+		modifyArticle() {
+			axios
+				.put(URL + this.$route.params.id + '/', {
+					headers: {
+						Authorization: `Token ${this.userToken}`,
+					},
+					title: this.article.title,
+					content: this.article.content,
+				})
+				.then(res => {
+					console.log(res);
+					this.modifyCheck = false;
+					// this.$emit('comment-modified');
+					this.getArticle();
 				})
 				.catch(err => {
 					console.log(err);
@@ -84,7 +146,6 @@ export default {
 				.then(res => {
 					console.log(res);
 					this.inputComment = '';
-					// this.getComments();
 					this.getArticle();
 				})
 				.catch(err => {

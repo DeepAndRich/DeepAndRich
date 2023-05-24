@@ -35,6 +35,9 @@ export default {
 		},
 	},
 	created() {
+		const user = localStorage.getItem('user');
+		this.$store.commit('setUser', user);
+		// 밑에 코드 좀 수정필요함
 		if (this.$store.state.mainDeposit.length > 0) {
 			return;
 		}

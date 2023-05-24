@@ -22,7 +22,7 @@
 		</div>
 		<div>
 			<button @click="createArticle">저장</button>
-			<button>돌아가기</button>
+			<button @click="returnCommunity">돌아가기</button>
 		</div>
 	</div>
 </template>
@@ -65,6 +65,9 @@ export default {
 				.catch(err => {
 					console.log(err);
 				});
+		},
+		returnCommunity() {
+			this.$router.push('/community');
 		},
 	},
 };
