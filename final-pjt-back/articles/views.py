@@ -24,7 +24,7 @@ def article_list(request):
         if request.user.is_authenticated:
             serializer = ArticleListSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                author = request.user.username
+                author = request.user.nickname
                 # print(author)
                 serializer.save(author=author)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)

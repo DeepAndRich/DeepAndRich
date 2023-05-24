@@ -31,8 +31,6 @@ API_KEY_1 = env('API_KEY_1')
 API_KEY_2 = env('API_KEY_2')
 
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -210,3 +208,8 @@ SITE_ID = 1
 #     # Needed to login by username in Django admin, regardless of allauth
 #     'django.contrib.auth.backends.ModelBackend',
 # ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 미디어 파일이 제공될 URL
+MEDIA_URL = '/media/'

@@ -3,16 +3,22 @@ from django.contrib.auth.models import AbstractUser
 from rest_framework import serializers
 from allauth.account.adapter import DefaultAccountAdapter
 from deposits.models import DepositProducts
+from savings.models import SavingProducts
 
 class User(AbstractUser):
     realname = models.CharField(max_length=30)
-    nickname = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50, unique=True)
     age = models.IntegerField()
     asset = models.IntegerField()
     region = models.CharField(max_length=20)
     personal_type = models.CharField(max_length=10, null=True)
-    sub_product = models.ManyToManyField(DepositProducts, symmetrical=False, related_name='myproducts')
-    
+    sub_deposit_product = models.ManyToManyField(DepositProducts, symmetrical=False, blank=True)
+    sub_saving_product = models.ManyToManyField(SavingProducts, symmetrical=False, blank=True)
+    # user_img = models.ImageField(upload_to='images/', null=True)
+
+    # def __str__(self):
+    #     return str(self.title)
+
 
 # 상속 받아서 구현해보기
 
