@@ -26,7 +26,6 @@ def save_myproduct(request, product_pk):
 def myproduct(request, user_pk):
   user = User.objects.get(pk=user_pk)
   sub_products = user.sub_product.all()
-  print(sub_products)
   sub_products_list = []
   for sub_product in sub_products:
     sub_product_data = {

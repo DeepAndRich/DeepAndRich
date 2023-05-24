@@ -27,7 +27,8 @@ environ.Env.read_env(
 )
 
 # 설정한 변수를 읽어옴
-API_KEY = env('API_KEY')
+API_KEY_1 = env('API_KEY_1')
+API_KEY_2 = env('API_KEY_2')
 
 
 
@@ -47,6 +48,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'exchange',
     'accounts',
     'savings',
     'deposits',

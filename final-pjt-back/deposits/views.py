@@ -12,7 +12,7 @@ from django.db.models import Max
 
 BASE_URL = 'http://finlife.fss.or.kr/finlifeapi/'
 
-API_KEY = settings.API_KEY
+API_KEY = settings.API_KEY_1
 
 
 
