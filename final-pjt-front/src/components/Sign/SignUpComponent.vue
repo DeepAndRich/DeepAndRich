@@ -90,12 +90,7 @@ export default {
 			const userAge = this.userAge;
 			const userRegion = this.userRegion;
 			const userAssets = this.userAssets;
-			console.log('클릭');
-			console.log({
-				userId,
-				userName,
-				userAssets,
-			});
+			console.log('회원가입 요청');
 			axios
 				.post(URL, {
 					username: userId,
@@ -109,6 +104,7 @@ export default {
 				})
 				.then(res => {
 					console.log(res);
+					this.$router.go(0);
 				})
 				.catch(err => {
 					console.log(err);

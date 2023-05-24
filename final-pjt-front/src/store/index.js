@@ -6,12 +6,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		userToken: null,
+		user: null,
 		showLoginState: false,
 		showSignUpState: false,
 		mainDeposit: [],
 		mainSavings: [],
 	},
 	getters: {
+		getUser(state) {
+			return state.user;
+		},
 		getShowLogin(state) {
 			return state.showLoginState;
 		},
@@ -29,6 +33,9 @@ export default new Vuex.Store({
 	mutations: {
 		setToken(state, payload) {
 			state.userToken = payload;
+		},
+		setUser(state, payload) {
+			state.user = payload;
 		},
 		showLogin(state, payload) {
 			state.showLoginState = payload;

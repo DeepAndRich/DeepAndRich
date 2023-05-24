@@ -4,6 +4,8 @@ import MainView from '../views/MainView.vue';
 import ProfileView from '@/views/ProfileView';
 import FinanceView from '@/views/FinanceView';
 import CommunityView from '@/views/CommunityView';
+import CommunityCreate from '@/views/CommunityCreate';
+import CommunityDetail from '@/views/CommunityDetailView';
 import OthersView from '@/views/OthersView';
 
 Vue.use(VueRouter);
@@ -28,6 +30,16 @@ const routes = [
 		path: '/community',
 		name: 'community',
 		component: CommunityView,
+	},
+	{
+		path: '/community/create',
+		name: 'community-create',
+		component: CommunityCreate,
+	},
+	{
+		path: '/community/:id',
+		name: 'community-detail',
+		component: CommunityDetail,
 	},
 	{
 		path: '/others',
