@@ -5,14 +5,14 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-
+from django.http import JsonResponse
 from .models import Article, Comment
 from .serializers import ArticleListSerializer, CommentSerializer
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
-from drf_yasg.utils import swagger_auto_schema
+# from drf_yasg.utils import swagger_auto_schema
 
 # Create your views here.
-@swagger_auto_schema(methods=['POST'], request_body=ArticleListSerializer)
+# @swagger_auto_schema(methods=['POST'], request_body=ArticleListSerializer)
 @api_view(['GET', 'POST'])
 def article_list(request):
     if request.method == "GET":
@@ -21,11 +21,16 @@ def article_list(request):
         return Response(serializer.data)
     
     if request.method == "POST":
-        serializer = ArticleListSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.user.is_authenticated:
+            serializer = ArticleListSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                author = request.user
+                serializer.save(author=author)
+              
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return JsonResponse({'message': 'Invalid'})
+        return JsonResponse({'message':'Not allowed'})
 
 
 
@@ -86,11 +91,13 @@ def comment_detail(request, comment_pk):
 
 @api_view(['POST'])
 def likes(request, article_pk):
-    article = Article.objects.get(pk=article_pk)
-    if article.like_users.filter(pk=request.user.pk).exixts():
-        article.like_users.remove(request.user)
-        message = 'disliked'
-    else:
-        article.like_users.add(request.user)
-        message = 'liked'
-    return Response({'message': message})
+    if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=article_pk)
+        if article.like_users.filter(pk=request.user.pk).exists():
+            article.like_users.remove(request.user)
+            message = 'disliked'
+        else:
+            article.like_users.add(request.user)
+            message = 'liked'
+        return Response({'message': message})
+    return JsonResponse({'message': 'Not allowed'})
