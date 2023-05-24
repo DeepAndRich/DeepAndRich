@@ -1,22 +1,72 @@
 {
-	"banks": [
-		"KEB하나은행",
-		"SC제일은행",
-		"국민은행",
-		"신한은행",
-		"외환은행",
-		"우리은행",
-		"한국시티은행",
-		"경남은행",
-		"광주은행",
-		"대구은행",
-		"부산은행",
-		"전북은행",
-		"제주은행",
-		"기업은행",
-		"농협",
-		"수협",
-		"신협",
-		"MG새마을금고"
-	]
+	"bankList": {
+		"수협은행": {
+			"name": "수협은행",
+			"url": "@/assets/img/banks/Sh수협.png"
+		},
+		"한국스탠다드차타드은행": {
+			"name": "SC제일은행",
+			"url": "@/assets/img/banks/SC제일.png"
+		},
+		"우리은행": {
+			"name": "우리은행",
+			"url": "@/assets/img/banks/우리.png"
+		},
+		"중소기업은행": {
+			"name": "IBK기업은행",
+			"url": "@/assets/img/banks/IBK.png"
+		},
+		"토스뱅크 주식회사": {
+			"name": "토스뱅크",
+			"url": "@/assets/img/banks/토스.png"
+		},
+		"부산은행": {
+			"name": "부산은행",
+			"url": "@/assets/img/banks/Sh수협.png"
+		},
+		"전북은행": {
+			"name": "전북은행",
+			"url": "@/assets/img/banks/Sh수협.png"
+		},
+		"농협은행주식회사": {
+			"name": "농협",
+			"url": "@/assets/img/banks/농협.png"
+		},
+		"주식회사 케이뱅크": {
+			"name": "케이뱅크",
+			"url": "@/assets/img/banks/케이뱅크.png"
+		},
+		"광주은행": {
+			"name": "광주은행",
+			"url": "@/assets/img/banks/Sh수협.png"
+		},
+		"한국산업은행": {
+			"name": "KDB산업은행",
+			"url": "@/assets/img/banks/KDB.png"
+		},
+		"주식회사 카카오뱅크": {
+			"name": "카카오뱅크",
+			"url": "@/assets/img/banks/카카오뱅크.png"
+		},
+		"경남은행": {
+			"name": "경남은행",
+			"url": "@/assets/img/banks/Sh수협.png"
+		},
+		"제주은행": {
+			"name": "제주은행",
+			"url": "@/assets/img/banks/신한.png"
+		},
+		"신한은행": {
+			"name": "신한은행",
+			"url": "@/assets/img/banks/신한.png"
+		},
+		"하나은행": {
+			"name": "하나은행",
+			"url": "@/assets/img/banks/하나.png"
+		},
+		"국민은행": {
+			"name": "국민은행",
+			"url": "@/assets/img/banks/KB.png"
+		}
+	}
 }

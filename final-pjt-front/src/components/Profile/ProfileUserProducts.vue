@@ -11,8 +11,17 @@
 </template>
 
 <script>
+import BANKLIST from '@/assets/json/banklist.json';
 export default {
 	name: 'ProfileUserProducts',
+	props: {
+		item: Object,
+	},
+	data() {
+		return {
+			bankName: BANKLIST.bankList,
+		};
+	},
 };
 </script>
 

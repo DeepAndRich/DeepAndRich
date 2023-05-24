@@ -9,8 +9,8 @@ export default new Vuex.Store({
 		user: null,
 		showLoginState: false,
 		showSignUpState: false,
-		mainDeposit: [],
-		mainSavings: [],
+		mainDeposit: {},
+		mainSavings: {},
 	},
 	getters: {
 		getUser(state) {
@@ -44,10 +44,12 @@ export default new Vuex.Store({
 			state.showSignUpState = payload;
 		},
 		saveMainDeposit(state, payload) {
-			state.mainDeposit.push(payload);
+			// Vue.set(state.mainDeposit, month, payload);
+			state.mainDeposit = payload;
 		},
 		saveMainSavings(state, payload) {
-			state.mainSavings.push(payload);
+			state.mainSavings = payload;
+			// Vue.set(state.mainSavings, month, payload);
 		},
 	},
 	actions: {},

@@ -43,6 +43,14 @@ export default {
 		// check() {
 		// 	console.log(this.title, this.content);
 		// },
+		// {
+		// 			headers: {
+		// 				Authorization: `Token ${this.userToken}`,
+		// 			},
+		// 			title,
+		// 			content,
+		// 		}
+
 		createArticle() {
 			const title = this.title;
 			const content = this.content;
@@ -52,18 +60,25 @@ export default {
 			const body = { title, content };
 			console.log(body, this.userToken, '저장?');
 			axios
-				.post(URL, {
-					headers: {
-						Authorization: `Token ${this.userToken}`,
+				.post(
+					URL,
+					{
+						title,
+						content,
 					},
-					title,
-					content,
-				})
+					{
+						headers: {
+							Authorization: `Token ${this.userToken}`,
+						},
+					},
+				)
 				.then(res => {
 					console.log(res);
+					this.returnCommunity();
 				})
 				.catch(err => {
 					console.log(err);
+					console.log('why');
 				});
 		},
 		returnCommunity() {

@@ -20,7 +20,13 @@
 
 			<SignItem v-model="userName" placeHolder="이름" />
 			<SignItem v-model="userNickName" placeHolder="닉네임" />
-			<SignItem v-model="userAge" placeHolder="나이" type="number" />
+			<SignItem
+				v-model="userAge"
+				placeHolder="나이"
+				type="number"
+				min="0"
+				max="100"
+			/>
 			<div class="signItem flex items-center justify-around my-2.5">
 				<span>지역</span>
 				<LocationSelect v-model="userRegion" />

@@ -3,7 +3,8 @@
 		<h1>상세페이지</h1>
 		<div v-if="getArticleCheck">
 			<div v-if="!modifyCheck">
-				{{ article.title }} <br />{{ article.content }}
+				{{ article.title }} <br />{{ article.content }} <br />
+				저자: {{ article.author }}
 			</div>
 			<div v-else>
 				<div class="w-full">
@@ -28,7 +29,7 @@
 				</div>
 			</div>
 
-			<div>
+			<div v-if="getUserCheck">
 				<button @click="modifyToggle">
 					<span v-if="!modifyCheck">수정</span>
 					<span v-else>수정취소</span>
@@ -75,6 +76,8 @@ export default {
 			modifyCheck: false,
 			inputComment: '',
 			userToken: localStorage.getItem('token'),
+			user: localStorage.getItem('user'),
+			isChecked: false,
 		};
 	},
 	created() {
@@ -88,8 +91,18 @@ export default {
 				return true;
 			}
 		},
+		getUserCheck() {
+			return this.isChecked;
+		},
 	},
 	methods: {
+		userCheck() {
+			if (this.article.author == JSON.parse(this.user).pk) {
+				return true;
+			} else {
+				return false;
+			}
+		},
 		modifyToggle() {
 			this.modifyCheck = !this.modifyCheck;
 		},
@@ -99,6 +112,7 @@ export default {
 				.then(res => {
 					console.log(res);
 					this.article = res.data;
+					this.isChecked = this.userCheck();
 				})
 				.catch(err => {
 					console.log(err);

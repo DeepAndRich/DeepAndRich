@@ -15,10 +15,10 @@
 				class="mx-2 h-8 border-2 border-black rounded-lg"
 				v-model="selectedMonth"
 			>
-				<option value="0">6개월</option>
-				<option value="1">12개월</option>
-				<option value="2">24개월</option>
-				<option value="3">36개월</option>
+				<option value="6">6개월</option>
+				<option value="12">12개월</option>
+				<option value="24">24개월</option>
+				<option value="36">36개월</option>
 			</select>
 			<select
 				class="mx-2 h-8 border-2 border-black rounded-lg"
@@ -66,7 +66,7 @@ export default {
 	data() {
 		return {
 			selectedFinance: '정기예금',
-			selectedMonth: '0',
+			selectedMonth: '6',
 			selectedTax: '15.4',
 			inputMoney: '100000',
 		};
