@@ -1,6 +1,10 @@
 <template>
 	<div>
 		<h1>상세페이지</h1>
+		<div>
+			<button v-if="getLikeUsers" @click="likeArticle">좋아요!</button>
+			<button v-else @click="likeArticle">좋아요 취소</button>
+		</div>
 		<div v-if="getArticleCheck">
 			<div v-if="!modifyCheck">
 				{{ article.title }} <br />{{ article.content }} <br />
@@ -78,6 +82,7 @@ export default {
 			userToken: localStorage.getItem('token'),
 			user: localStorage.getItem('user'),
 			isChecked: false,
+			likeUsers: [],
 		};
 	},
 	created() {
@@ -94,6 +99,17 @@ export default {
 		getUserCheck() {
 			return this.isChecked;
 		},
+		getLikeUsers() {
+			if (this.likeUsers.includes(JSON.parse(this.user).pk)) {
+				// this.getArticle();
+
+				return false;
+			} else {
+				// this.getArticle();
+
+				return true;
+			}
+		},
 	},
 	methods: {
 		userCheck() {
@@ -102,6 +118,20 @@ export default {
 			} else {
 				return false;
 			}
+		},
+		likeArticle() {
+			axios
+				.post(URL + this.article.id + '/likes/', null, {
+					headers: {
+						Authorization: `Token ${this.userToken}`,
+					},
+				})
+				.then(res => {
+					console.log(res);
+				})
+				.catch(err => {
+					console.log(err);
+				});
 		},
 		modifyToggle() {
 			this.modifyCheck = !this.modifyCheck;
@@ -113,6 +143,7 @@ export default {
 					console.log(res);
 					this.article = res.data;
 					this.isChecked = this.userCheck();
+					this.likeUsers = res.data.like_users;
 				})
 				.catch(err => {
 					console.log(err);
