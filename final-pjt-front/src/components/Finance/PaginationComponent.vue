@@ -1,5 +1,5 @@
 <template>
-	<nav class="pagination">
+	<div class="pagination">
 		<ul class="flex">
 			<!-- <li :class="{ disabled: currentPage === 1 }">
 				<button
@@ -25,7 +25,7 @@
 				</button>
 			</li> -->
 		</ul>
-	</nav>
+	</div>
 </template>
 
 <script>

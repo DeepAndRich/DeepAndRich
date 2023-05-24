@@ -20,7 +20,7 @@
 
 			<SignItem v-model="userName" placeHolder="이름" />
 			<SignItem v-model="userNickName" placeHolder="닉네임" />
-			<SignItem v-model="userAge" placeHolder="나이" type="date" />
+			<SignItem v-model="userAge" placeHolder="나이" type="number" />
 			<div class="signItem flex items-center justify-around my-2.5">
 				<span>지역</span>
 				<LocationSelect v-model="userRegion" />
@@ -90,12 +90,7 @@ export default {
 			const userAge = this.userAge;
 			const userRegion = this.userRegion;
 			const userAssets = this.userAssets;
-			console.log('클릭');
-			console.log({
-				userId,
-				userName,
-				userAssets,
-			});
+			console.log('회원가입 요청');
 			axios
 				.post(URL, {
 					username: userId,
@@ -109,6 +104,7 @@ export default {
 				})
 				.then(res => {
 					console.log(res);
+					this.$router.go(0);
 				})
 				.catch(err => {
 					console.log(err);

@@ -1,13 +1,13 @@
 <template>
 	<div
-		class="billBoardTitle rounded-lg h-16 bg-black flex items-center justify-center"
+		class="billBoardTitle w-full rounded-lg h-16 text-center bg-black flex items-center justify-center"
 	>
-		<span>순위</span>
-		<span>{{ selectedMonth }}개월</span>
-		<span>세전이자</span>
-		<span>세후이자</span>
-		<span>금융기관</span>
-		<span>상품명</span>
+		<span class="w-1/12">순위</span>
+		<span class="w-2/12">세전이자</span>
+		<span class="w-2/12">세후이자</span>
+		<span class="w-3/12 pr-16">금융기관</span>
+		<span class="w-3/12 pr-16">상품명</span>
+		<!-- <span class="w-1/12"></span> -->
 	</div>
 </template>
 

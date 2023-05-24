@@ -5,8 +5,11 @@
 			<p>로그인</p>
 		</div>
 		<div>
-			<SignItem v-model="userId" placeHolder="아이디" />
-			<SignItem v-model="password" placeHolder="비밀번호" type="password" />
+			<div @keydown.enter="loginClick">
+				<SignItem v-model="userId" placeHolder="아이디" />
+				<SignItem v-model="password" placeHolder="비밀번호" type="password" />
+			</div>
+
 			<p v-if="loginCheck" class="loginCheckText">
 				아이디 또는 비밀번호를 확인해 주세요
 			</p>
@@ -31,6 +34,7 @@ import SignButton from './SignButtonComponent.vue';
 import SignItem from './SignItemComponent.vue';
 
 const URL = 'http://127.0.0.1:8000/dj-rest-auth/login/';
+const URL2 = 'http://127.0.0.1:8000/dj-rest-auth/user/';
 
 export default {
 	name: 'LoginComponent',
@@ -61,6 +65,30 @@ export default {
 				})
 				.then(res => {
 					console.log(res);
+					localStorage.setItem('token', res.data.key);
+					this.$store.commit('setToken', res.data.key);
+					axios
+						.get(URL2, {
+							headers: {
+								Authorization: `Token ${res.data.key}`,
+							},
+						})
+						.then(response => {
+							const user = response.data;
+
+							// 사용자 정보를 로컬 스토리지에 저장
+							localStorage.setItem('user', JSON.stringify(user));
+
+							// Vuex 스토어에 사용자 정보 저장
+							this.$store.commit('setUser', user);
+
+							// 홈페이지 등으로 이동
+							this.$store.commit('showLogin', false);
+							this.$router.go(0);
+						})
+						.catch(error => {
+							console.log(error);
+						});
 				})
 				.catch(err => {
 					console.log(err);

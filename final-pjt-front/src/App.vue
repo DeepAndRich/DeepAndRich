@@ -35,9 +35,25 @@ export default {
 		},
 	},
 	created() {
+		const user = localStorage.getItem('user');
+		this.$store.commit('setUser', user);
+		// 밑에 코드 좀 수정필요함
+		if (this.$store.state.mainDeposit.length > 0) {
+			return;
+		}
 		for (let i = 0; i < 4; i++) {
+			let month = 0;
+			if (i == 0) {
+				month = 6;
+			} else if (i == 1) {
+				month = 12;
+			} else if (i == 2) {
+				month = 24;
+			} else {
+				month = 36;
+			}
 			axios
-				.get(`http://127.0.0.1:8000/savings/saving-products/`)
+				.get(`http://127.0.0.1:8000/savings/saving-products/${month}/`)
 				.then(res => {
 					this.$store.commit('saveMainSavings', res.data);
 				})
@@ -45,7 +61,7 @@ export default {
 					console.log(err);
 				});
 			axios
-				.get(`http://127.0.0.1:8000/deposits/deposit-products/`)
+				.get(`http://127.0.0.1:8000/deposits/deposit-products/${month}/`)
 				.then(res => {
 					this.$store.commit('saveMainDeposit', res.data);
 				})
