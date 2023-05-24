@@ -1,11 +1,15 @@
 <template>
-	<div class="w-32 h-40 flex items-center flex-wrap justify-center">
+	<div class="w-32 h-44 flex items-center flex-wrap justify-center">
 		<div>
-			<img class="h-20 w-20" src="@/assets/img/banks/신한.png" alt="" />
+			<img
+				class="h-20 w-20"
+				:src="require(`@/assets/img/banks/${bankName}.png`)"
+				alt=""
+			/>
 		</div>
-		<div>
-			<p>제주은행</p>
-			<p>다드림예금</p>
+		<div class="h-24 p-2">
+			<p>{{ bankName }}</p>
+			<p>{{ productName }}</p>
 		</div>
 	</div>
 </template>
@@ -19,7 +23,8 @@ export default {
 	},
 	data() {
 		return {
-			bankName: BANKLIST.bankList,
+			bankName: BANKLIST.bankList[this.item.kor_co_nm].name,
+			productName: this.item.fin_prdt_nm,
 		};
 	},
 };

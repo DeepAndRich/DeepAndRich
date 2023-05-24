@@ -1,17 +1,8 @@
 <template>
 	<swiper class="swiper" :options="swiperOption">
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
-		<swiper-slide><ProfileUserProducts /></swiper-slide>
+		<swiper-slide v-for="item in items" :key="item.id"
+			><ProfileUserProducts :item="item"
+		/></swiper-slide>
 		<div class="swiper-pagination" slot="pagination"></div>
 	</swiper>
 </template>
@@ -28,6 +19,9 @@ export default {
 		Swiper,
 		SwiperSlide,
 		ProfileUserProducts,
+	},
+	props: {
+		items: Array,
 	},
 	data() {
 		return {
@@ -46,4 +40,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.swiper {
+	width: 100%;
+}
+</style>

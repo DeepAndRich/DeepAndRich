@@ -6,7 +6,9 @@
 		<div>우대금리: {{ item.intr_rate2 }}</div>
 		<div>금리: {{ item.intr_rate }}</div>
 		<div>{{ item.rsrv_type_nm }}</div>
-		<button class="border-2 rounded border-black">상품 가입</button>
+		<button @click="check" class="border-2 rounded border-black">
+			상품 가입
+		</button>
 
 		<BillboardDetailItem />
 	</div>
@@ -14,6 +16,8 @@
 
 <script>
 import BillboardDetailItem from './BillboardDetailItem.vue';
+import axios from 'axios';
+const URL = 'http://127.0.0.1:8000/accounts/save_myproduct/';
 
 export default {
 	name: 'BillboardDetail',
@@ -22,6 +26,32 @@ export default {
 	},
 	props: {
 		item: Object,
+	},
+	data() {
+		return {
+			user: JSON.parse(localStorage.getItem('user')),
+			userToken: localStorage.getItem('token'),
+		};
+	},
+	methods: {
+		check() {
+			console.log(this.user.pk);
+			console.log(this.userToken);
+			console.log(this.item);
+			console.log(this.item.fin_prdt_cd.id);
+			axios
+				.post(URL + this.item.fin_prdt_cd.id + '/', null, {
+					headers: {
+						Authorization: `Token ${this.userToken}`,
+					},
+				})
+				.then(res => {
+					console.log(res);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
 	},
 };
 </script>
