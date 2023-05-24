@@ -19,7 +19,7 @@ def save_myproduct(request, product_pk):
       user.sub_product.add(product)
 
     return JsonResponse({'message': 'Product saved successfully!'})
-  return JsonResponse({'message' : 'Not allowed'}, status=401)
+  return JsonResponse({'message' : 'Not allowed'})
 
 
 @api_view(['GET'])

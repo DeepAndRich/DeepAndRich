@@ -12,6 +12,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ArticleListSerializer(serializers.ModelSerializer):
     # Comment_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+  
     comment_set = CommentSerializer(many=True, read_only=True)
     comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
     class Meta:
