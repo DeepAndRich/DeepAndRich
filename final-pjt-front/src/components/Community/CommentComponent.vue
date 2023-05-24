@@ -28,17 +28,21 @@ export default {
 			modifyCheck: false,
 			content: this.item.content,
 			userToken: localStorage.getItem('token'),
+			user: this.$store.getters.getUser,
 		};
 	},
 	computed: {
 		checkModify() {
 			return this.modifyCheck;
 		},
+		// userCheck() {
+		// 	if(this.user.pk == )
+		// },
 	},
 	methods: {
 		deleteComment() {
 			axios
-				.delete(URL + this.item.id + '/')
+				.delete(URL + this.item.id + 'comments/')
 				.then(res => {
 					console.log(res);
 					this.$emit('comment-deleted');

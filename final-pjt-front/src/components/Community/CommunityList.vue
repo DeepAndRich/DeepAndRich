@@ -6,7 +6,7 @@
 		</div>
 		<div class="w-2/12">{{ item.author }}</div>
 		<div class="w-2/12">{{ formatDate(item.created_at) }}</div>
-		<div class="w-1/12">{{ item.like_users }}</div>
+		<div class="w-1/12">{{ item.like_users.length }}</div>
 	</div>
 </template>
 
