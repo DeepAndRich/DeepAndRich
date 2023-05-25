@@ -114,6 +114,9 @@ export default {
 				})
 				.catch(err => {
 					console.log(err);
+					if (err.response.data?.username !== null) {
+						alert('해당 아이디는 이미 존재합니다.');
+					}
 				});
 		},
 	},

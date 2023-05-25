@@ -18,7 +18,7 @@
 				<p v-else>비밀번호가 일치합니다.</p>
 			</div> -->
 
-			<!-- <SignItem v-model="userName" placeHolder="이름" /> -->
+			<SignItem v-model="userName" placeHolder="이름" />
 			<SignItem v-model="userNickName" placeHolder="닉네임" />
 			<SignItem
 				v-model="userAge"
@@ -72,18 +72,18 @@ export default {
 			password2: '',
 			userName: '',
 			userNickName: '',
-			userAge: '',
+			userAge: 0,
 			userRegion: '',
-			userAssets: '',
+			userAssets: 0,
 			userToken: localStorage.getItem('token'),
 		};
 	},
 	created() {
 		this.userName = this.user.realname;
 		this.userNickName = this.user.nickname;
-		this.userAge = Number(this.user.age);
+		this.userAge = String(this.user.age);
 		this.userRegion = this.user.region;
-		this.userAssets = this.user.asset;
+		this.userAssets = String(this.user.asset);
 	},
 	computed: {
 		samePassword() {
@@ -131,7 +131,7 @@ export default {
 				)
 				.then(res => {
 					console.log(res);
-					this.$router.go(0);
+					// this.$router.go(0);
 				})
 				.catch(err => {
 					console.log(err);

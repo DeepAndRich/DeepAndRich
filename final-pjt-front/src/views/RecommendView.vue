@@ -1,5 +1,5 @@
 <template>
-	<div class="recommendContainer bg-green-200">
+	<div class="recommendContainer">
 		<h1>추천알고리즘</h1>
 		<div>
 			<button @click="toggleComponent">유형검사</button>

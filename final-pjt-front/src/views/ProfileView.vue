@@ -1,12 +1,14 @@
 <template>
 	<div class="profileView flex flex-wrap">
-		<!-- <button @click="check">asdfsf</button> -->
+		{{ user.personal_type }}
+		<button @click="check">asdfsf</button>
 		<div class="w-5/12 flex items-center flex-wrap p-7 text-left">
 			<div class="profileImage w-40 h-40 mb-4"></div>
 			<div class="w-full">{{ user.nickname }}</div>
 			<div class="w-full">{{ user.email }}</div>
 			<div class="w-full">{{ user.region }}</div>
 			<div class="w-full">{{ user.age }}세</div>
+			<div>{{ user.personal_type }}</div>
 		</div>
 		<div class="w-7/12 p-7">
 			<div>
@@ -53,7 +55,7 @@ export default {
 	},
 	methods: {
 		check() {
-			console.log(this.user);
+			console.log(this.user, '???');
 		},
 		getUserProducts() {
 			axios
