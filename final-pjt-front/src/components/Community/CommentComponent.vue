@@ -1,5 +1,5 @@
 <template>
-	<div class="border-2 bg-green-200">
+	<div>
 		<div v-if="!modifyCheck">
 			{{ item.content }}
 			<div>작성자: {{ item.author_nickname }}</div>

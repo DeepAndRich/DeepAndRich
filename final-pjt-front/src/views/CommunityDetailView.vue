@@ -1,61 +1,81 @@
 <template>
 	<div>
-		<h1>상세페이지</h1>
-		<div v-if="!getUserCheck">
-			<button v-if="getLikeUsers" @click="likeArticle">좋아요!</button>
-			<button v-else @click="likeArticle">좋아요 취소</button>
-		</div>
-		<div v-if="getArticleCheck">
-			<div v-if="!modifyCheck">
-				{{ article.title }} <br />{{ article.content }} <br />
-				저자: {{ article.author_nickname }}
+		<div class="bigbox">
+			<!-- <h1>상세페이지</h1> -->
+			<div v-if="getArticleCheck">
+				<div v-if="!modifyCheck">
+					<div class="flex justify-between">
+						<h1 class="title text-left">{{ article.title }}</h1>
+						<div class="text-right" v-if="!getUserCheck">
+							<button v-if="getLikeUsers" @click="likeArticle">좋아요!</button>
+							<button v-else @click="likeArticle">좋아요 취소</button>
+						</div>
+					</div>
+					<div class="text-left">{{ article.author_nickname }}</div>
+					<br />
+					<div class="content text-left">
+						{{ article.content }}
+					</div>
+					<br />
+				</div>
+				<div v-else>
+					<div class="w-full">
+						title :
+						<input
+							v-model="article.title"
+							class="border-2"
+							type="text"
+							name="title"
+							maxlength="10"
+						/>
+					</div>
+					<div class="w-full">
+						<div>content</div>
+						<textarea
+							class="bd-black border-2"
+							name="content"
+							cols="70"
+							rows="20"
+							v-model="article.content"
+						></textarea>
+					</div>
+				</div>
+				<div v-if="getUserCheck">
+					<button @click="modifyToggle">
+						<span v-if="!modifyCheck">수정</span>
+						<span v-else>수정취소</span>
+					</button>
+					<button v-if="modifyCheck" @click="modifyArticle">저장</button>
+					<button v-else @click="deleteArticle" style="border: 1px solid black">
+						삭제
+					</button>
+				</div>
 			</div>
-			<div v-else>
-				<div class="w-full">
-					title :
+			<div v-else>로딩중</div>
+			<hr />
+			<h3 class="text-left" style="font-size: 24px">댓글</h3>
+			<div class="mt-10 pb-10">
+				<div class="input">
 					<input
-						v-model="article.title"
-						class="border-2"
 						type="text"
-						name="title"
-						maxlength="10"
+						name="comment"
+						v-model="inputComment"
+						style="border: 1px solid black; width: 90%; height: 50px"
+					/>
+					&nbsp;
+					<button @click="saveComment">저장</button>
+				</div>
+				<div
+					v-for="item in article.comment_set"
+					:key="item.id"
+					class="comment-container"
+				>
+					<Comment
+						:item="item"
+						@comment-deleted="getArticle"
+						@comment-modified="getArticle"
 					/>
 				</div>
-				<div class="w-full">
-					<div>content</div>
-					<textarea
-						class="bd-black border-2"
-						name="content"
-						cols="70"
-						rows="20"
-						v-model="article.content"
-					></textarea>
-				</div>
-			</div>
-
-			<div v-if="getUserCheck">
-				<button @click="modifyToggle">
-					<span v-if="!modifyCheck">수정</span>
-					<span v-else>수정취소</span>
-				</button>
-				<button v-if="modifyCheck" @click="modifyArticle">저장</button>
-				<button v-else @click="deleteArticle">삭제</button>
-			</div>
-		</div>
-		<div v-else>로딩중</div>
-		<hr />
-		<div class="mt-10">
-			댓글자리
-			<div>
-				<input type="text" name="comment" v-model="inputComment" />
-				<button @click="saveComment">댓글 저장</button>
-			</div>
-			<div v-for="item in article.comment_set" :key="item.id">
-				<Comment
-					:item="item"
-					@comment-deleted="getArticle"
-					@comment-modified="getArticle"
-				/>
 			</div>
 		</div>
 	</div>
@@ -205,4 +225,35 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.title {
+	font-size: 35px;
+	margin-left: 10;
+	margin-top: 10;
+}
+
+.bigbox {
+	margin: 0 auto;
+	width: 700px;
+	padding: 8px;
+	padding-top: 130px;
+	background-color: #ffffff; /* 원하는 배경색 */
+}
+
+.content {
+	/* border: 0.5px solid black; */
+	padding-top: 30px;
+	height: 300px;
+}
+
+.input {
+	padding-bottom: 20px;
+}
+
+.comment-container {
+	padding-top: 50px;
+	text-align: left;
+
+	margin-bottom: 20px; /* 원하는 간격 크기로 조절하세요 */
+}
+</style>

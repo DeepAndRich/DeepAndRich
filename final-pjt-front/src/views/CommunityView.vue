@@ -1,9 +1,10 @@
 <template>
-	<div class="community p-8 bg-green-200 text-lg">
+	<div class="community p-8 text-lg">
+		<!-- bg-green-200 -->
 		<div class="flex items-center justify-between">
-			<div class="w-2/12">게시판</div>
-			<div class="w-2/12">
-				<button>검색</button>
+			<!-- <div class="w-2/12">게시판</div> -->
+			<div></div>
+			<div class="w-2/12 flex justify-end items-center">
 				<button @click="goToCreateArticle">글쓰기</button>
 			</div>
 		</div>
@@ -16,21 +17,21 @@
 				<div class="w-1/12">좋아요</div>
 			</div>
 		</div>
-		<div v-if="getArticlesCheck">
+		<div style="min-height: 600px" v-if="getArticlesCheck">
 			<CommunityList
 				v-for="item in paginatedItems"
 				:item="item"
 				:key="item.id"
 			/>
 		</div>
-		<div v-else>글이 없습니다.</div>
+		<div v-else style="min-height: 600px">글이 없습니다.</div>
 		<Pagination
 			:currentPage="currentPage"
 			:totalPages="totalPages"
 			@page-changed="handlePageChange"
 		/>
 
-		<button @click="getArticles">safasdfsf</button>
+		<!-- <button @click="getArticles">safasdfsf</button> -->
 	</div>
 </template>
 
@@ -54,6 +55,7 @@ export default {
 				title: '제목',
 				author: '작성자',
 				created_at: '작성일',
+				updated_at: '수정',
 			},
 			currentPage: 1,
 			itemsPerPage: 10, // 페이지당 아이템 수
