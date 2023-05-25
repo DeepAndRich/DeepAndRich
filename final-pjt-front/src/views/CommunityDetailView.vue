@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<h1>상세페이지</h1>
-		<div v-if="getUserCheck">
+		<div v-if="!getUserCheck">
 			<button v-if="getLikeUsers" @click="likeArticle">좋아요!</button>
 			<button v-else @click="likeArticle">좋아요 취소</button>
 		</div>
 		<div v-if="getArticleCheck">
 			<div v-if="!modifyCheck">
 				{{ article.title }} <br />{{ article.content }} <br />
-				저자: {{ article.author }}
+				저자: {{ article.author_nickname }}
 			</div>
 			<div v-else>
 				<div class="w-full">
@@ -98,19 +98,15 @@ export default {
 		},
 		getUserCheck() {
 			console.log(this.user, '???');
-			if (this.article.author == JSON.parse(this.user)?.nickname) {
+			if (this.article?.author_nickname == JSON.parse(this.user)?.nickname) {
 				return true;
 			}
 			return false;
 		},
 		getLikeUsers() {
 			if (this.likeUsers.includes(JSON.parse(this.user)?.pk)) {
-				// this.getArticle();
-
 				return false;
 			} else {
-				// this.getArticle();
-
 				return true;
 			}
 		},
@@ -185,12 +181,17 @@ export default {
 		},
 		saveComment() {
 			axios
-				.post(URL + this.$route.params.id + '/comments/', {
-					headers: {
-						Authorization: `Token ${this.userToken}`,
+				.post(
+					URL + this.$route.params.id + '/comments/',
+					{
+						content: this.inputComment,
 					},
-					content: this.inputComment,
-				})
+					{
+						headers: {
+							Authorization: `Token ${this.userToken}`,
+						},
+					},
+				)
 				.then(res => {
 					console.log(res);
 					this.inputComment = '';

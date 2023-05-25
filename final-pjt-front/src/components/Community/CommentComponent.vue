@@ -1,15 +1,20 @@
 <template>
 	<div class="border-2 bg-green-200">
-		<div v-if="!modifyCheck">{{ item.content }}</div>
+		<div v-if="!modifyCheck">
+			{{ item.content }}
+			<div>작성자: {{ item.author_nickname }}</div>
+		</div>
 		<div v-else>
 			<input v-model="content" type="text" />
 		</div>
-		<button @click="modifyToggle">
-			<span v-if="!modifyCheck">수정</span>
-			<span v-else>수정취소</span>
-		</button>
-		<button v-if="modifyCheck" @click="modifyComment">저장</button>
-		<button v-else @click="deleteComment">삭제</button>
+		<div v-if="userCheck">
+			<button @click="modifyToggle">
+				<span v-if="!modifyCheck">수정</span>
+				<span v-else>수정취소</span>
+			</button>
+			<button v-if="modifyCheck" @click="modifyComment">저장</button>
+			<button v-else @click="deleteComment">삭제</button>
+		</div>
 	</div>
 </template>
 
@@ -35,9 +40,14 @@ export default {
 		checkModify() {
 			return this.modifyCheck;
 		},
-		// userCheck() {
-		// 	if(this.user.pk == )
-		// },
+		userCheck() {
+			if (JSON.parse(this.user)?.pk == this.item?.author_id) {
+				console.log('확인');
+				return true;
+			} else {
+				return false;
+			}
+		},
 	},
 	methods: {
 		deleteComment() {
