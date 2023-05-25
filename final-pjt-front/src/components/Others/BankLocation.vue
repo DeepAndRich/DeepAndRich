@@ -1,8 +1,8 @@
 <template>
 	<div class="bankLoca flex flex-shrink">
-		<div class="flex items-center flex-wrap justify-center w-64 flex-shrink">
+		<div class="flex items-center flex-wrap justify-center w-64 h-min flex-col">
 			<LocationSelect v-model="selectedLocation" />
-			<div>
+			<div class="w-full h-12 my-4">
 				<select v-model="selectedBank">
 					<option value="">은행 선택</option>
 					<option v-for="bank in banks" :value="bank" :key="bank">
@@ -10,8 +10,12 @@
 					</option>
 				</select>
 			</div>
-			<div class="w-40 flex flex-grow-0" @click="searchBank">
-				<SignButton buttonName="검색" />
+			<div class="w-full" @click="searchBank">
+				<button
+					class="bg-themeBlue text-white w-48 h-12 rounded-lg text-xl hover:bg-sky-300"
+				>
+					검색
+				</button>
 			</div>
 		</div>
 		<div id="map"></div>
@@ -19,9 +23,9 @@
 </template>
 
 <script>
-import LocationSelect from '../LocationSelect.vue';
+import LocationSelect from './BankLocationSelect.vue';
 
-import SignButton from '../Sign/SignButtonComponent.vue';
+// import SignButton from '../Sign/SignButtonComponent.vue';
 import BANK_LIST from '@/assets/json/banks.json';
 const KAKAO_API_KEY = 'ff4a60a02a968cbe4a7c906d776763c8';
 
@@ -29,7 +33,7 @@ export default {
 	name: 'KakaoMap',
 	components: {
 		LocationSelect,
-		SignButton,
+		// SignButton,
 	},
 	data() {
 		return {
@@ -67,7 +71,8 @@ export default {
 		initMap() {
 			const container = document.getElementById('map');
 			const options = {
-				center: new kakao.maps.LatLng(33.450701, 126.570667),
+				// center: new kakao.maps.LatLng(33.450701, 126.570667),
+				center: new kakao.maps.LatLng(37.5013068, 127.0396597),
 				level: 3,
 			};
 
@@ -133,10 +138,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.bankLoca {
+/* .bankLoca {
+	margin: 0 auto;
 	width: 1250px;
 	height: 650px;
-}
+} */
 #map {
 	width: 650px;
 	height: 550px;
