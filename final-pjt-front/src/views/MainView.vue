@@ -2,13 +2,21 @@
 	<div class="mainPage mx-auto">
 		<div class="mainContainer flex">
 			<div class="w-3/12 flex justify-center">
-				<TestComponentVue name="정기예금 순위" :list="getDepositArray" />
+				<TestComponentVue
+					name="정기예금 순위"
+					:list="getDepositArray"
+					@click-check="goToFinance"
+				/>
 			</div>
 			<div class="w-3/12 flex justify-center">
-				<TestComponentVue name="정기적금 순위" :list="getSavingArray" />
+				<TestComponentVue
+					name="정기적금 순위"
+					:list="getSavingArray"
+					@click-check="goToFinance"
+				/>
 			</div>
 			<div class="w-3/12 flex justify-center">
-				<MainArticle :list="getArticles" />
+				<MainArticle :list="getArticles" @click-check="goToArticle" />
 			</div>
 			<div class="w-3/12 flex justify-center">
 				<div class="gotobox cursor-pointer">
@@ -18,33 +26,34 @@
 		</div>
 		<!-- {{ getDepositArray }} -->
 		<div class="mainBtmContainer">
-			<div style="font-size: 30px">
+			<div class="p-4 py-12" style="font-size: 30px">
 				<h2>나에게 어울리는 스타일은?</h2>
 			</div>
-			<div
-				style="
-					max-width: 800px;
-					display: flex;
-					flex-wrap: wrap;
-					justify-content: center;
-				"
-			>
-				<div class="image-container" style="flex-basis: 50%">
+			<div class="flex flex-wrap px-3">
+				<div class="image-container w-3/12">
 					<span>어떤 방식이든 자유롭게 자유형</span>
 					<img src="@/assets/img/freestyle.gif/" />
 				</div>
-				<div class="image-container" style="flex-basis: 50%">
+				<div class="image-container w-3/12">
 					<span>느리지만 확실하게, 원하는 용도로 자유롭게</span>
 					<img src="@/assets/img/breststroke.gif/" />
 				</div>
-				<div class="image-container" style="flex-basis: 50%">
+				<div class="image-container w-3/12">
 					<span>유유자적 돈 버는 게 제일 쉬웠어요...</span>
 					<img src="@/assets/img/backstroke.gif/" />
 				</div>
-				<div class="image-container" style="flex-basis: 50%">
+				<div class="image-container w-3/12">
 					<span>압도적인 추진력! 저 먼저 갑니다</span>
 					<img src="@/assets/img/butterfly.gif/" />
 				</div>
+			</div>
+			<div>
+				<button
+					class="bg-themeBlue w-48 h-12 text-lg text-white rounded-lg mt-16"
+					@click="goToRecommend"
+				>
+					확인하러 가기
+				</button>
 			</div>
 		</div>
 	</div>
@@ -123,6 +132,12 @@ export default {
 		goToRecommend() {
 			this.$router.push('/recommend');
 		},
+		goToArticle() {
+			this.$router.push('/community');
+		},
+		goToFinance() {
+			this.$router.push('/finance');
+		},
 	},
 };
 </script>
@@ -144,12 +159,12 @@ export default {
 .mainContainer {
 	margin: 0 auto;
 	width: 1250px;
-	height: 650px;
+	height: 470px;
 }
 .mainBtmContainer {
 	margin: 0 auto;
 	width: 1200px;
-	height: 1300px;
+	height: 500px;
 	background-color: #fff;
 	box-shadow: -8px 8px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 28px;

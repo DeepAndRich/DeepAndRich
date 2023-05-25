@@ -4,6 +4,7 @@
 		:class="{ expanded: isExpanded }"
 		@mouseenter="expandBox"
 		@mouseleave="shrinkBox"
+		@click="clickCheck"
 	>
 		<div v-if="!isExpanded" class="placeholder">{{ name }}</div>
 		<div name="flip-list" tag="div" class="list-container">
@@ -57,6 +58,10 @@ export default {
 		},
 		stopFlipping() {
 			clearInterval(this.interval);
+		},
+		clickCheck() {
+			this.$emit('click-check');
+			console.log('클릭확인');
 		},
 	},
 };

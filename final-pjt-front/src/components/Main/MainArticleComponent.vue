@@ -4,6 +4,7 @@
 		:class="{ expanded: isExpanded }"
 		@mouseenter="expandBox"
 		@mouseleave="shrinkBox"
+		@click="clickCheck"
 	>
 		<div v-if="!isExpanded" class="placeholder">
 			게시판 <br />
@@ -59,6 +60,10 @@ export default {
 		},
 		stopFlipping() {
 			clearInterval(this.interval);
+		},
+		clickCheck() {
+			this.$emit('click-check');
+			console.log('클릭확인');
 		},
 	},
 };
