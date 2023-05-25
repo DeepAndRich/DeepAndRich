@@ -5,7 +5,12 @@
 			<!-- <div class="w-2/12">게시판</div> -->
 			<div></div>
 			<div class="w-2/12 flex justify-end items-center">
-				<button @click="goToCreateArticle">글쓰기</button>
+				<button
+					class="w-24 h-8 mx-4 border-2 border-black rounded-lg"
+					@click="goToCreateArticle"
+				>
+					글쓰기
+				</button>
 			</div>
 		</div>
 		<div class="border-solid border-b-2 border-black">
@@ -19,8 +24,9 @@
 		</div>
 		<div style="min-height: 600px" v-if="getArticlesCheck">
 			<CommunityList
-				v-for="item in paginatedItems"
+				v-for="(item, index) in paginatedItems"
 				:item="item"
+				:index="index + 1"
 				:key="item.id"
 			/>
 		</div>
@@ -88,8 +94,8 @@ export default {
 		goToCreateArticle() {
 			this.$router.push('/community/create');
 		},
-		getArticles() {
-			axios
+		async getArticles() {
+			await axios
 				.get(URL)
 				.then(res => {
 					console.log(res);

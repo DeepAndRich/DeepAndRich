@@ -34,6 +34,7 @@ const routes = [
 		path: '/recommend',
 		name: 'recommend',
 		component: RecommendView,
+		meta: { requiresAuth: true },
 	},
 	{
 		path: '/community',

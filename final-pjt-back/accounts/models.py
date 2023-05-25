@@ -11,7 +11,7 @@ class User(AbstractUser):
     age = models.IntegerField()
     asset = models.IntegerField()
     region = models.CharField(max_length=20)
-    personal_type = models.CharField(max_length=10, null=True)
+    personal_type = models.CharField(max_length=30, null=True)
     sub_deposit_product = models.ManyToManyField(DepositProducts, symmetrical=False, blank=True)
     sub_saving_product = models.ManyToManyField(SavingProducts, symmetrical=False, blank=True)
     # user_img = models.ImageField(upload_to='images/', null=True)
@@ -60,7 +60,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if region:
             user_field(user, "region", region)
         if realname:
-            user_field(user, "user_id", user_id)
+            user_field(user, "user_id", realname)
      
         if "password1" in data:
             user.set_password(data["password1"])

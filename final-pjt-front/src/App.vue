@@ -35,6 +35,23 @@ export default {
 		},
 	},
 	created() {
+		if (Object.keys(this.$store.state.mainDeposit).length == 0) {
+			axios
+				.get('http://127.0.0.1:8000/savings/save-saving-products/')
+				.then(res => console.log(res))
+				.catch(err => console.log(err));
+			axios
+				.get('http://127.0.0.1:8000/deposits/save-deposit-products/')
+				.then(res => console.log(res))
+				.catch(err => console.log(err));
+			axios
+				.get('http://127.0.0.1:8000/exchange/save-exchange-rate/')
+				.then(res => {
+					console.log(res);
+				})
+				.catch(err => console.log(err));
+			console.log('확인');
+		}
 		const user = localStorage.getItem('user');
 		this.$store.commit('setUser', user);
 		if (Object.keys(this.$store.state.mainDeposit).length == 0) {
@@ -100,6 +117,6 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-	color: #42b983;
+	color: #ffe14e;
 }
 </style>

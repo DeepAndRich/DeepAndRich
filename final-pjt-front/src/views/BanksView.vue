@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center justify-center">
+	<div class="bankContainer">
 		<BankLocation />
 	</div>
 </template>
@@ -15,4 +15,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.bankContainer {
+	width: 1000px;
+	height: 700px;
+	margin: 0 auto;
+}
+</style>

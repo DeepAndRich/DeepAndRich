@@ -1,23 +1,10 @@
 <template>
-	<div class="signUp z-50">
+	<div class="modifyProfile z-50">
 		<img src="@/assets/img/logo.png" alt="" />
 		<div class="loginTitle align-middle flex items-center justify-center">
 			<p>회원정보수정</p>
 		</div>
 		<div>
-			<!-- <SignItem v-model="userId" placeHolder="아이디" />
-			<SignItem v-model="password1" placeHolder="비밀번호" type="password" /> -->
-			<!-- <SignItem
-				v-model="password2"
-				placeHolder="비밀번호 확인"
-				type="password"
-			/>
-			<div class="float-right">
-				<p v-if="samePassword === 0">비밀번호를 입력해 주세요.</p>
-				<p v-else-if="samePassword === 1">비밀번호가 일치하지 않습니다.</p>
-				<p v-else>비밀번호가 일치합니다.</p>
-			</div> -->
-
 			<SignItem v-model="userName" placeHolder="이름" />
 			<SignItem v-model="userNickName" placeHolder="닉네임" />
 			<SignItem
@@ -44,7 +31,6 @@
 			<div @click="modifyProfile">
 				<SignButton buttonName="수정" />
 			</div>
-			<button @click="check">확인</button>
 		</div>
 	</div>
 </template>
@@ -101,22 +87,16 @@ export default {
 			console.log(this.user);
 		},
 		modifyProfile() {
-			// const userId = this.userId;
-			// const password1 = this.password1;
-			// const password2 = this.password2;
 			const userName = this.userName;
 			const userNickName = this.userNickName;
 			const userAge = this.userAge;
 			const userRegion = this.userRegion;
 			const userAssets = this.userAssets;
-			console.log('회원가입 요청');
+			console.log('프로필 수정 요청');
 			axios
 				.put(
 					URL,
 					{
-						// username: userId,
-						// password1,
-						// password2,
 						age: userAge,
 						realname: userName,
 						nickname: userNickName,
@@ -131,10 +111,11 @@ export default {
 				)
 				.then(res => {
 					console.log(res);
-					// this.$router.go(0);
+					this.$emit('profile-modified');
 				})
 				.catch(err => {
 					console.log(err);
+					alert('이미 존재하는 닉네임입니다.');
 				});
 		},
 	},
@@ -142,14 +123,14 @@ export default {
 </script>
 
 <style>
-.signUp {
+.modifyProfile {
 	width: 375px;
-	height: 730px;
+	height: 530px;
 	padding: 10px;
 	background-color: #fff;
 	border-radius: 5px;
 }
-.signUp .loginTitle {
+.modifyProfile .loginTitle {
 	width: 220px;
 	height: 58px;
 	text-align: center;

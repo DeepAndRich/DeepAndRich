@@ -6,64 +6,119 @@
 				<div v-if="!modifyCheck">
 					<div class="flex justify-between">
 						<h1 class="title text-left">{{ article.title }}</h1>
-						<div class="text-right" v-if="!getUserCheck">
-							<button v-if="getLikeUsers" @click="likeArticle">좋아요!</button>
-							<button v-else @click="likeArticle">좋아요 취소</button>
+						<div class="flex items-center justify-center" v-if="isLogined">
+							<div
+								class="flex items-center justify-center"
+								v-if="!getUserCheck"
+							>
+								<button
+									class="border-2 border-rose-300 bg-rose-300 hover:bg-rose-400 rounded-lg w-32 h-8"
+									v-if="getLikeUsers"
+									@click="likeArticle"
+								>
+									좋아요!
+								</button>
+								<button
+									class="border-2 border-rose-300 bg-rose-300 hover:bg-rose-400 rounded-lg w-32 h-8"
+									v-else
+									@click="likeArticle"
+								>
+									좋아요 취소
+								</button>
+							</div>
 						</div>
 					</div>
-					<div class="text-left">{{ article.author_nickname }}</div>
+					<div
+						class="text-left flex justify-around items-center h-12 border-b-2 border-black"
+					>
+						<div>작성자 : {{ article.author_nickname }}</div>
+						<div>좋아요수: {{ article.like_users.length }}</div>
+						<div>작성시간: {{ formatDate(article.created_at) }}</div>
+					</div>
 					<br />
-					<div class="content text-left">
+					<div class="content pd-2 text-left">
 						{{ article.content }}
 					</div>
 					<br />
 				</div>
 				<div v-else>
-					<div class="w-full">
-						title :
+					<div class="w-full h-12 border-b-2 border-black">
+						<span class="text-lg mr-4">제목:</span>
 						<input
 							v-model="article.title"
-							class="border-2"
+							class="border-2 w-10/12 h-8 pl-4"
 							type="text"
 							name="title"
 							maxlength="10"
 						/>
 					</div>
 					<div class="w-full">
-						<div>content</div>
+						<div class="text-left pl-4 text-lg my-4">내용</div>
 						<textarea
-							class="bd-black border-2"
-							name="content"
-							cols="70"
+							class="bd-black border-2 p-4"
+							name="contents"
+							cols="72"
 							rows="20"
 							v-model="article.content"
+							placeholder="내용을 작성하세요"
 						></textarea>
 					</div>
 				</div>
-				<div v-if="getUserCheck">
-					<button @click="modifyToggle">
-						<span v-if="!modifyCheck">수정</span>
-						<span v-else>수정취소</span>
-					</button>
-					<button v-if="modifyCheck" @click="modifyArticle">저장</button>
-					<button v-else @click="deleteArticle" style="border: 1px solid black">
-						삭제
-					</button>
+
+				<div class="flex justify-between">
+					<div>
+						<button
+							class="w-24 h-8 mb-2 border-2 border-red-200 rounded-lg"
+							@click="goToCommunity"
+						>
+							돌아가기
+						</button>
+					</div>
+					<div v-if="getUserCheck">
+						<button
+							class="w-24 h-8 border-2 border-black rounded-lg mx-4"
+							@click="modifyToggle"
+						>
+							<span v-if="!modifyCheck">수정</span>
+							<span v-else>수정취소</span>
+						</button>
+						<button
+							class="w-24 h-8 border-2 border-black rounded-lg"
+							v-if="modifyCheck"
+							@click="modifyArticle"
+						>
+							저장
+						</button>
+						<button
+							class="w-24 h-8 border-2 border-black rounded-lg"
+							v-else
+							@click="deleteArticle"
+						>
+							삭제
+						</button>
+					</div>
 				</div>
 			</div>
 			<div v-else>로딩중</div>
 			<hr />
-			<h3 class="text-left" style="font-size: 24px">댓글</h3>
+			<h3 class="text-left" style="font-size: 24px">Comments</h3>
 			<div class="mt-10 pb-10">
 				<div class="input">
 					<input
+						class="p-4 rounded-lg w-10/12"
 						type="text"
 						name="comment"
 						v-model="inputComment"
-						style="border: 1px solid black; width: 90%; height: 50px"
+						placeholder="댓글 작성"
+						style="border: 1px solid black; height: 50px"
 					/>
 					&nbsp;
-					<button @click="saveComment">저장</button>
+					<button
+						class="border-2 border-black rounded-lg w-24 h-12"
+						@click="saveComment"
+					>
+						저장
+					</button>
 				</div>
 				<div
 					v-for="item in article.comment_set"
@@ -116,6 +171,14 @@ export default {
 				return true;
 			}
 		},
+		isLogined() {
+			const check = localStorage.getItem('token');
+			if (check?.length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		},
 		getUserCheck() {
 			console.log(this.user, '???');
 			if (this.article?.author_nickname == JSON.parse(this.user)?.nickname) {
@@ -132,6 +195,16 @@ export default {
 		},
 	},
 	methods: {
+		goToCommunity() {
+			this.$router.push('/community');
+		},
+		formatDate(date) {
+			const formattedDate = new Date(date);
+			const year = formattedDate.getFullYear();
+			const month = ('0' + (formattedDate.getMonth() + 1)).slice(-2);
+			const day = ('0' + formattedDate.getDate()).slice(-2);
+			return `${year}년 ${month}월 ${day}일`;
+		},
 		userCheck() {
 			if (this.article.author == JSON.parse(this.user)?.pk) {
 				return true;
@@ -236,24 +309,24 @@ export default {
 	margin: 0 auto;
 	width: 700px;
 	padding: 8px;
-	padding-top: 130px;
+	/* padding-top: 130px; */
 	background-color: #ffffff; /* 원하는 배경색 */
 }
 
 .content {
 	/* border: 0.5px solid black; */
-	padding-top: 30px;
+	/* padding-top: 1rem; */
 	height: 300px;
 }
 
-.input {
+/* .input {
 	padding-bottom: 20px;
-}
+} */
 
 .comment-container {
-	padding-top: 50px;
+	padding-top: 2rem;
 	text-align: left;
 
-	margin-bottom: 20px; /* 원하는 간격 크기로 조절하세요 */
+	/* margin-bottom: 20px; */
 }
 </style>

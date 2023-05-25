@@ -32,6 +32,7 @@
 					</button>
 					<button
 						v-else
+						@click="showModifyProfile"
 						class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg"
 					>
 						유저 정보 수정
@@ -89,10 +90,19 @@ export default {
 			localStorage.removeItem('token');
 			localStorage.removeItem('user');
 			console.log('로그아웃');
-			this.$router.go(0);
+			if (this.$store.getters.getProfileCheck) {
+				this.$router.push('/');
+				this.$router.go(0);
+			} else {
+				this.$router.go(0);
+			}
+			// this.$router.push({ name: 'mainpage' });
 		},
 		goToProfile() {
 			this.$router.push('/profile');
+		},
+		showModifyProfile() {
+			this.$store.commit('setModifyProfile', true);
 		},
 	},
 	computed: {

@@ -16,7 +16,7 @@
 
 		<div v-if="checkUser" class="w-full flex items-center justify-center">
 			<button
-				v-if="checkProducts"
+				v-if="!checkProducts"
 				@click="check"
 				class="subscribeProduct hover:bg-sky-300"
 			>
