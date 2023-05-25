@@ -24,8 +24,7 @@ def article_list(request):
         if request.user.is_authenticated:
             serializer = ArticleListSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                author = request.user.nickname
-                # print(author)
+                author = [(request.user.pk, request.user.nickname)]
                 serializer.save(author=author)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
@@ -61,10 +60,12 @@ def article_delete(request, article_pk):
 def comment_list(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
-        serializer = CommentSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(article=article)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.user.is_authenticated:
+            author = (request.user.pk, request.user.nickname)
+            serializer = CommentSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(article=article, author=author)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
     elif request.method == 'GET':
         comments = article.comment_set.all()
         serializer = CommentSerializer(comments, many=True)

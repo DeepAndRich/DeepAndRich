@@ -6,6 +6,7 @@ from .serializers import ExchangeRateSerializer
 from rest_framework.response import Response
 from .models import ExchangeRateInfo
 from django.http import JsonResponse
+from rest_framework import status
 
 # BASE_URL = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON/'
 API_KEY = settings.API_KEY_2
