@@ -17,7 +17,7 @@ export default {
 
 <style>
 .bankContainer {
-	width: 1200px;
+	width: 1000px;
 	height: 700px;
 	margin: 0 auto;
 }

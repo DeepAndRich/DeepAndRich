@@ -144,8 +144,10 @@ export default {
 	height: 650px;
 } */
 #map {
+	display: block;
 	width: 650px;
 	height: 550px;
+	margin: 0 auto;
 }
 
 .button-group {

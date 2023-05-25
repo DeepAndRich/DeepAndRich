@@ -6,21 +6,26 @@
 				<div v-if="!modifyCheck">
 					<div class="flex justify-between">
 						<h1 class="title text-left">{{ article.title }}</h1>
-						<div class="flex items-center justify-center" v-if="!getUserCheck">
-							<button
-								class="border-2 border-rose-300 bg-rose-300 hover:bg-rose-400 rounded-lg w-32 h-8"
-								v-if="getLikeUsers"
-								@click="likeArticle"
+						<div class="flex items-center justify-center" v-if="isLogined">
+							<div
+								class="flex items-center justify-center"
+								v-if="!getUserCheck"
 							>
-								좋아요!
-							</button>
-							<button
-								class="border-2 border-rose-300 bg-rose-300 hover:bg-rose-400 rounded-lg w-32 h-8"
-								v-else
-								@click="likeArticle"
-							>
-								좋아요 취소
-							</button>
+								<button
+									class="border-2 border-rose-300 bg-rose-300 hover:bg-rose-400 rounded-lg w-32 h-8"
+									v-if="getLikeUsers"
+									@click="likeArticle"
+								>
+									좋아요!
+								</button>
+								<button
+									class="border-2 border-rose-300 bg-rose-300 hover:bg-rose-400 rounded-lg w-32 h-8"
+									v-else
+									@click="likeArticle"
+								>
+									좋아요 취소
+								</button>
+							</div>
 						</div>
 					</div>
 					<div
@@ -164,6 +169,14 @@ export default {
 				return false;
 			} else {
 				return true;
+			}
+		},
+		isLogined() {
+			const check = localStorage.getItem('token');
+			if (check?.length > 0) {
+				return true;
+			} else {
+				return false;
 			}
 		},
 		getUserCheck() {
