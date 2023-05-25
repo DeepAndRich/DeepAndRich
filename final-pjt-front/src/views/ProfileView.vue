@@ -17,12 +17,16 @@
 			</div>
 		</div>
 		<ProfileSwiper :items="products" />
+		<div>
+			<ModifyProfileVue />
+		</div>
 	</div>
 </template>
 
 <script>
 import ProfileSwiper from '@/components/Profile/ProfileSwiper.vue';
 import axios from 'axios';
+import ModifyProfileVue from '@/components/Profile/ModifyProfile.vue';
 
 const URL = 'http://127.0.0.1:8000/accounts/';
 
@@ -30,6 +34,7 @@ export default {
 	name: 'ProfileView',
 	components: {
 		ProfileSwiper,
+		ModifyProfileVue,
 	},
 	data() {
 		return {
@@ -69,7 +74,7 @@ export default {
 .profileView {
 	margin: 0 auto 0 auto;
 	width: 850px;
-	height: 550px;
+	/* height: 550px; */
 }
 .profileImage {
 	background-image: url('@/assets/img/example.jpeg');
