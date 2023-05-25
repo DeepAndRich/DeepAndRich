@@ -174,6 +174,7 @@ export default {
 			} else {
 				this.answer = 'butterfly';
 			}
+			console.log(this.answer, '확인');
 			axios
 				.put(
 					URL,

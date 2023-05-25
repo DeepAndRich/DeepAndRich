@@ -88,8 +88,8 @@ export default {
 		goToCreateArticle() {
 			this.$router.push('/community/create');
 		},
-		getArticles() {
-			axios
+		async getArticles() {
+			await axios
 				.get(URL)
 				.then(res => {
 					console.log(res);

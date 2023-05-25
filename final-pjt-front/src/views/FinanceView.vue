@@ -66,6 +66,7 @@ export default {
 	},
 	data() {
 		return {
+			Products: [],
 			selectedFinance: '정기예금',
 			selectedMonth: '6',
 			selectedTax: '15.4',
@@ -75,10 +76,15 @@ export default {
 	},
 	computed: {
 		selectedProducts() {
-			if (this.selectedFinance !== '정기예금') {
-				return this.$store.getters.getMainSavings(this.selectedMonth);
+			this.setProdcts();
+			return this.Products;
+		},
+		checkProducts() {
+			if (this.Products.length == 0) {
+				this.setProdcts();
+				return false;
 			} else {
-				return this.$store.getters.getMainDeposit(this.selectedMonth);
+				return true;
 			}
 		},
 	},
@@ -88,6 +94,13 @@ export default {
 	methods: {
 		click() {
 			console.log(this.selectedProducts);
+		},
+		setProdcts() {
+			if (this.selectedFinance !== '정기예금') {
+				this.Products = this.$store.getters.getMainSavings(this.selectedMonth);
+			} else {
+				this.Products = this.$store.getters.getMainDeposit(this.selectedMonth);
+			}
 		},
 		getProducts() {
 			axios

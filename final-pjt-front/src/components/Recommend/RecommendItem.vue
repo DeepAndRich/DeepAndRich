@@ -1,16 +1,27 @@
 <template>
 	<div>
-		추천
-		<button @click="getRecommendProducts">와와아</button>
+		<!-- 추천
+		<button @click="setRecommendProducts">와와아</button> -->
 		<div>
 			<img class="mx-auto" :src="getUserType" alt="" />
-			{{ recommendProducts }}
+			<!-- {{ recommendProducts }} -->
+		</div>
+		<div
+			class="recommendBoard bg-black rounded-lg mt-10 p-3"
+			v-if="recommendProducts"
+		>
+			<RecommendListTitle />
+			<RecommendItemList :items="getRecommendedProducts" />
 		</div>
 	</div>
 </template>
 
 <script>
 import axios from 'axios';
+
+import RecommendListTitle from './RecommendListTitle.vue';
+import RecommendItemList from './RecommendItemList.vue';
+
 const TYPE_URL = 'http://127.0.0.1:8000/dj-rest-auth/user/';
 const SAVING_URL = 'http://127.0.0.1:8000/savings/';
 const DEPOSIT_URL = 'http://127.0.0.1:8000/deposits/';
@@ -24,6 +35,10 @@ export default {
 			userToken: localStorage.getItem('token'),
 		};
 	},
+	components: {
+		RecommendListTitle,
+		RecommendItemList,
+	},
 	computed: {
 		getUserType() {
 			console.log(this.userType);
@@ -31,17 +46,23 @@ export default {
 
 			return require(`@/assets/img/${this.userType}.gif`);
 		},
+		getRecommendedProducts() {
+			if (this.recommendProducts.length == 0) {
+				this.setRecommendProducts();
+			}
+			return this.recommendProducts;
+		},
 	},
+	// created() {
+	// 	this.setRecommendProducts;
+	// },
 	methods: {
 		getImagePath() {
 			console.log(`@/assets/img/${this.userType}.gif`);
-			// 동적 이미지 경로를 반환하는 메소드
-			// return require(`@/assets/img/${this.userType}.gif`);
-			// this.getRecommendProducts();
 			return require(`@/assets/img/${this.userType}.gif`);
 		},
-		getRecommendProducts() {
-			axios
+		async setRecommendProducts() {
+			await axios
 				.get(TYPE_URL, {
 					headers: {
 						Authorization: `Token ${this.userToken}`,
