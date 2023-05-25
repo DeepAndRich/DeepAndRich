@@ -5,17 +5,15 @@
 		@mouseenter="expandBox"
 		@mouseleave="shrinkBox"
 	>
-		<div v-if="!isExpanded" class="placeholder">{{ name }}</div>
+		글써보기
 		<div name="flip-list" tag="div" class="list-container">
 			<div
 				v-for="(item, index) in list"
 				:key="index"
-				class="list-item p-2"
+				class="list-item"
 				:class="{ flipped: isFlipped(index) }"
 			>
-				<span :class="{ 'list-item-content': !isExpanded }">{{
-					item.fin_prdt_cd.fin_prdt_nm
-				}}</span>
+				{{ item }}
 			</div>
 		</div>
 	</div>
@@ -23,13 +21,18 @@
 
 <script>
 export default {
-	props: {
-		name: String,
-		list: { type: Array },
-	},
 	data() {
 		return {
 			isExpanded: false,
+			list: [
+				'Item 1',
+				'Item 2',
+				'Item 3',
+				'Item 4',
+				'Item 5',
+				'Item 6',
+				'Item 7',
+			],
 			currentIndex: -1,
 		};
 	},
@@ -65,30 +68,18 @@ export default {
 <style>
 .square-box {
 	position: absolute;
-	margin-top: 4.5rem;
+	top: 181px;
 	width: 220px;
 	height: 110px;
-	background-color: #000;
-	border-radius: 8px;
+	background-color: #fff;
 	transition: height 0.5s;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
+}
+.hoverCheck {
+	display: none;
 }
 
 .square-box.expanded {
-	height: 500px;
-}
-
-.placeholder {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 24px;
-	color: #fde047;
-	text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
+	height: 400px;
 }
 
 .list-container {
@@ -96,37 +87,23 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	/* justify-content: center; */
-	/* align-items: center; */
-	text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
 	align-items: center;
+	display: block;
 }
 
 .list-item {
 	width: 100%;
-	height: 100px;
+	height: 50px;
 	text-align: center;
 	color: #000;
-	opacity: 0;
-	/* background-color: #000; */
+	background-color: #000;
 	transition: transform 0.5s;
 	transform: rotateX(-180deg);
-	list-style-type: none; /* ::marker 제거 */
-	margin: 0;
-	padding: 0;
-	font-size: 24px;
-}
-
-.list-item-content {
-	display: none; /* 초기에 숨겨진 상태로 설정 */
 }
 
 .list-item.flipped {
 	transform: rotateX(0deg);
-	opacity: 1;
-	/* color: white; */
-	color: #fde047;
-	text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
+	color: white;
 }
 
 /* Flip 애니메이션 설정 */
