@@ -1,6 +1,36 @@
 <template>
-	<div class="exchange flex mx-auto">
+	<div class="exchange flex mx-auto flex-wrap">
 		<div class="w-6/12">
+			<h1>여기 환율 계산기 넣기</h1>
+			<button @click="check">확인용</button>
+			<div>
+				<select v-model="selectedCountry" name="" id="">
+					<option v-for="item in countryList" :key="item.key" :value="item">
+						{{ item }}
+					</option>
+				</select>
+			</div>
+			<div>
+				원화 : <input v-model="inputMoney" type="number" name="" id="" />
+			</div>
+			<div>환전 : {{ calculatedMoney }}</div>
+		</div>
+		<div class="w-6/12">
+			<h1>여기 환율 계산기 넣기</h1>
+			<button @click="check">확인용</button>
+			<div>
+				<select v-model="selectedCountry" name="" id="">
+					<option v-for="item in countryList" :key="item.key" :value="item">
+						{{ item }}
+					</option>
+				</select>
+			</div>
+			<div>
+				원화 : <input v-model="inputMoney" type="number" name="" id="" />
+			</div>
+			<div>환전 : {{ calculatedMoney }}</div>
+		</div>
+		<div class="w-full">
 			<h1>여기 환율 정보 넣기</h1>
 			<div class="flex border-b-2 border-black">
 				<div class="w-4/12">화폐코드</div>
@@ -18,21 +48,6 @@
 					{{ item.deal_bas_r }}
 				</div>
 			</div>
-		</div>
-		<div class="w-6/12">
-			<h1>여기 환율 계산기 넣기</h1>
-			<button @click="check">확인용</button>
-			<div>
-				<select v-model="selectedCountry" name="" id="">
-					<option v-for="item in countryList" :key="item.key" :value="item">
-						{{ item }}
-					</option>
-				</select>
-			</div>
-			<div>
-				원화 : <input v-model="inputMoney" type="number" name="" id="" />
-			</div>
-			<div>환전 : {{ calculatedMoney }}</div>
 		</div>
 	</div>
 </template>

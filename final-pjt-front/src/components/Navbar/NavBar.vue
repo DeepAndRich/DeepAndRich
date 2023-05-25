@@ -1,7 +1,7 @@
 <template>
 	<div class="py-11 px-14 w-full h-36 mx-auto bg-white z-30">
 		<nav
-			class="text-xl flex box-content p-0 flex-wrap items-center justify-between"
+			class="navBar text-xl flex box-content p-0 flex-wrap items-center justify-between"
 		>
 			<div class="flex items-center">
 				<router-link to="/" class="w-80 mr-2"
@@ -54,11 +54,11 @@ export default {
 			navList: [
 				{
 					URL: '/finance',
-					title: '예 적금 비교',
+					title: '금융상품비교',
 				},
 				{
-					URL: '/algorithm',
-					title: '추천 알고리즘',
+					URL: '/recommend',
+					title: 'MY유형검사',
 				},
 				{
 					URL: '/community',
@@ -66,11 +66,11 @@ export default {
 				},
 				{
 					URL: '/banks',
-					title: '은행',
+					title: '은행찾기',
 				},
 				{
 					URL: '/exchange',
-					title: '환율',
+					title: '환율계산',
 				},
 			],
 		};
@@ -107,4 +107,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.navBar {
+	width: 1300px;
+	margin: 0 auto;
+}
+</style>

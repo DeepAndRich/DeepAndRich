@@ -1,10 +1,13 @@
 <template>
-	<div class="flex items-center justify-around w-full h-12 hover:underline">
+	<div
+		class="flex items-center justify-around w-full h-12 hover:underline cursor-pointer"
+		@click="goToDetail"
+	>
 		<div class="w-2/12 h-8">{{ item.id }}</div>
-		<div class="w-5/12 cursor-pointer" @click="goToDetail">
+		<div class="w-5/12 cursor-pointer">
 			{{ item.title }}
 		</div>
-		<div class="w-2/12">{{ item.author }}</div>
+		<div class="w-2/12">{{ item.author_nickname }}</div>
 		<div class="w-2/12">{{ formatDate(item.created_at) }}</div>
 		<div class="w-1/12">{{ item.like_users.length }}</div>
 	</div>

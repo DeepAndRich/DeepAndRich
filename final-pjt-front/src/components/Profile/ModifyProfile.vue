@@ -2,12 +2,12 @@
 	<div class="signUp z-50">
 		<img src="@/assets/img/logo.png" alt="" />
 		<div class="loginTitle align-middle flex items-center justify-center">
-			<p>회원가입</p>
+			<p>회원정보수정</p>
 		</div>
 		<div>
-			<SignItem v-model="userId" placeHolder="아이디" />
-			<SignItem v-model="password1" placeHolder="비밀번호" type="password" />
-			<SignItem
+			<!-- <SignItem v-model="userId" placeHolder="아이디" />
+			<SignItem v-model="password1" placeHolder="비밀번호" type="password" /> -->
+			<!-- <SignItem
 				v-model="password2"
 				placeHolder="비밀번호 확인"
 				type="password"
@@ -16,7 +16,7 @@
 				<p v-if="samePassword === 0">비밀번호를 입력해 주세요.</p>
 				<p v-else-if="samePassword === 1">비밀번호가 일치하지 않습니다.</p>
 				<p v-else>비밀번호가 일치합니다.</p>
-			</div>
+			</div> -->
 
 			<SignItem v-model="userName" placeHolder="이름" />
 			<SignItem v-model="userNickName" placeHolder="닉네임" />
@@ -41,23 +41,24 @@
 				</select>
 			</SignItem>
 
-			<div @click="signUp">
-				<SignButton buttonName="회 원 가 입" />
+			<div @click="modifyProfile">
+				<SignButton buttonName="수정" />
 			</div>
+			<button @click="check">확인</button>
 		</div>
 	</div>
 </template>
 
 <script>
-import SignButton from './SignButtonComponent.vue';
-import SignItem from './SignItemComponent.vue';
+import SignButton from '@/components/Sign/SignButtonComponent.vue';
+import SignItem from '@/components/Sign/SignItemComponent.vue';
 import axios from 'axios';
-import LocationSelect from '../LocationSelect.vue';
+import LocationSelect from '@/components/LocationSelect.vue';
 
-const URL = 'http://127.0.0.1:8000/dj-rest-auth/registration/';
+const URL = 'http://127.0.0.1:8000/dj-rest-auth/user/';
 
 export default {
-	name: 'SignUpComponent',
+	name: 'ModifyProfile',
 	components: {
 		SignItem,
 		SignButton,
@@ -65,15 +66,24 @@ export default {
 	},
 	data() {
 		return {
+			user: JSON.parse(this.$store.getters.getUser),
 			userId: '',
 			password1: '',
 			password2: '',
 			userName: '',
 			userNickName: '',
-			userAge: '',
+			userAge: 0,
 			userRegion: '',
-			userAssets: '',
+			userAssets: 0,
+			userToken: localStorage.getItem('token'),
 		};
+	},
+	created() {
+		this.userName = this.user.realname;
+		this.userNickName = this.user.nickname;
+		this.userAge = String(this.user.age);
+		this.userRegion = this.user.region;
+		this.userAssets = String(this.user.asset);
 	},
 	computed: {
 		samePassword() {
@@ -87,10 +97,13 @@ export default {
 		},
 	},
 	methods: {
-		signUp() {
-			const userId = this.userId;
-			const password1 = this.password1;
-			const password2 = this.password2;
+		check() {
+			console.log(this.user);
+		},
+		modifyProfile() {
+			// const userId = this.userId;
+			// const password1 = this.password1;
+			// const password2 = this.password2;
 			const userName = this.userName;
 			const userNickName = this.userNickName;
 			const userAge = this.userAge;
@@ -98,25 +111,30 @@ export default {
 			const userAssets = this.userAssets;
 			console.log('회원가입 요청');
 			axios
-				.post(URL, {
-					username: userId,
-					password1,
-					password2,
-					age: userAge,
-					realname: userName,
-					nickname: userNickName,
-					region: userRegion,
-					asset: userAssets,
-				})
+				.put(
+					URL,
+					{
+						// username: userId,
+						// password1,
+						// password2,
+						age: userAge,
+						realname: userName,
+						nickname: userNickName,
+						region: userRegion,
+						asset: userAssets,
+					},
+					{
+						headers: {
+							Authorization: `Token ${this.userToken}`,
+						},
+					},
+				)
 				.then(res => {
 					console.log(res);
-					this.$router.go(0);
+					// this.$router.go(0);
 				})
 				.catch(err => {
 					console.log(err);
-					if (err.response.data?.username !== null) {
-						alert('해당 아이디는 이미 존재합니다.');
-					}
 				});
 		},
 	},

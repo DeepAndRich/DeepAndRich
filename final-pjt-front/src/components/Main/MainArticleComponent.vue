@@ -5,7 +5,10 @@
 		@mouseenter="expandBox"
 		@mouseleave="shrinkBox"
 	>
-		<div v-if="!isExpanded" class="placeholder">{{ name }}</div>
+		<div v-if="!isExpanded" class="placeholder">
+			게시판 <br />
+			순위
+		</div>
 		<div name="flip-list" tag="div" class="list-container">
 			<div
 				v-for="(item, index) in list"
@@ -13,9 +16,9 @@
 				class="list-item p-2"
 				:class="{ flipped: isFlipped(index) }"
 			>
-				<span class="text-left" :class="{ 'list-item-content': !isExpanded }">
-					{{ item.fin_prdt_cd.fin_prdt_nm }}</span
-				>
+				<span :class="{ 'list-item-content': !isExpanded }">{{
+					item.title
+				}}</span>
 			</div>
 		</div>
 	</div>
@@ -24,7 +27,6 @@
 <script>
 export default {
 	props: {
-		name: String,
 		list: { type: Array },
 	},
 	data() {
@@ -72,19 +74,20 @@ export default {
 	border-radius: 8px;
 	transition: height 0.5s;
 	display: flex;
-	/* justify-content: center; */
-	/* align-items: center; */
+	justify-content: center;
+	align-items: center;
 	box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
 }
 
 .square-box.expanded {
-	height: 15rem !important;
+	height: 500px;
 }
 
 .placeholder {
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	width: 90px;
 	transform: translate(-50%, -50%);
 	font-size: 24px;
 	color: #fde047;
@@ -99,24 +102,22 @@ export default {
 	/* justify-content: center; */
 	/* align-items: center; */
 	text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
-	text-align: left;
-	/* align-items: center; */
+	align-items: center;
 }
 
 .list-item {
 	width: 100%;
-	height: 4rem !important;
-	/* text-align: center; */
+	height: 100px;
+	text-align: center;
 	color: #000;
 	opacity: 0;
 	/* background-color: #000; */
-	text-align: left !important;
 	transition: transform 0.5s;
 	transform: rotateX(-180deg);
 	list-style-type: none; /* ::marker 제거 */
 	margin: 0;
 	padding: 0;
-	font-size: 20px !important;
+	font-size: 24px;
 }
 
 .list-item-content {

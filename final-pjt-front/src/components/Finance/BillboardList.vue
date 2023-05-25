@@ -2,7 +2,11 @@
 	<div>
 		<ul class="h-max text-left">
 			<div class="modal" v-if="showDetail" @click.self="closeDetail">
-				<BillboardDetail :item="selectedItem" :finance="finance" />
+				<BillboardDetail
+					:item="selectedItem"
+					:finance="finance"
+					@product-modified="closeDetail"
+				/>
 			</div>
 			<BillboardItem
 				v-for="(item, idx) in paginatedItems"

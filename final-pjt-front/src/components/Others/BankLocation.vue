@@ -10,7 +10,7 @@
 					</option>
 				</select>
 			</div>
-			<div class="w-56 flex flex-grow-0" @click="searchBank">
+			<div class="w-40 flex flex-grow-0" @click="searchBank">
 				<SignButton buttonName="검색" />
 			</div>
 		</div>

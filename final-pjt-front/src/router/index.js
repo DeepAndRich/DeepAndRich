@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '@/store/index';
+import store from '@/store';
 import MainView from '../views/MainView.vue';
 import ProfileView from '@/views/ProfileView';
 import FinanceView from '@/views/FinanceView';
+import RecommendView from '@/views/RecommendView';
 import CommunityView from '@/views/CommunityView';
 import CommunityCreate from '@/views/CommunityCreate';
 import CommunityDetail from '@/views/CommunityDetailView';
@@ -30,6 +31,11 @@ const routes = [
 		component: FinanceView,
 	},
 	{
+		path: '/recommend',
+		name: 'recommend',
+		component: RecommendView,
+	},
+	{
 		path: '/community',
 		name: 'community',
 		component: CommunityView,
@@ -38,6 +44,7 @@ const routes = [
 		path: '/community/create',
 		name: 'community-create',
 		component: CommunityCreate,
+		meta: { requiresAuth: true },
 	},
 	{
 		path: '/community/:id',
@@ -80,7 +87,9 @@ router.beforeEach((to, from, next) => {
 });
 
 function checkUserLogin() {
-	if (store.user) {
+	const dummy = localStorage.getItem('user');
+	console.log(dummy, '확인');
+	if (dummy == null) {
 		return false;
 	} else {
 		return true;
