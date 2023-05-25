@@ -1,19 +1,40 @@
 <template>
 	<div>
-		<div v-if="!modifyCheck">
-			{{ item.content }}
-			<div>작성자: {{ item.author_nickname }}</div>
+		<div class="h-8 flex items-center" v-if="!modifyCheck">
+			<p>{{ item.content }}</p>
 		</div>
 		<div v-else>
-			<input v-model="content" type="text" />
+			<input
+				class="border-2 border-black rounded-lg w-7/12 h-8 pl-2"
+				v-model="content"
+				type="text"
+			/>
 		</div>
-		<div v-if="userCheck">
-			<button @click="modifyToggle">
-				<span v-if="!modifyCheck">수정</span>
-				<span v-else>수정취소</span>
-			</button>
-			<button v-if="modifyCheck" @click="modifyComment">저장</button>
-			<button v-else @click="deleteComment">삭제</button>
+		<div class="flex justify-between items-center">
+			<div>작성자: {{ item.author_nickname }}</div>
+			<div v-if="userCheck">
+				<button
+					class="border-2 border-black w-24 rounded-lg mx-4"
+					@click="modifyToggle"
+				>
+					<span v-if="!modifyCheck">수정</span>
+					<span v-else>수정취소</span>
+				</button>
+				<button
+					class="border-2 border-black w-24 rounded-lg"
+					v-if="modifyCheck"
+					@click="modifyComment"
+				>
+					저장
+				</button>
+				<button
+					class="border-2 border-black w-24 rounded-lg"
+					v-else
+					@click="deleteComment"
+				>
+					삭제
+				</button>
+			</div>
 		</div>
 	</div>
 </template>

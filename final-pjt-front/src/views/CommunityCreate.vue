@@ -1,28 +1,39 @@
 <template>
-	<div class="communityCreate bg-green-200 mx-auto p-5">
-		<div class="w-full">
-			title :
+	<div class="communityCreate mx-auto">
+		<div class="w-full h-12 border-b-2 border-black">
+			<span class="text-lg mr-4">제목:</span>
 			<input
 				v-model="title"
-				class="border-2"
+				class="border-2 w-10/12 h-8 pl-4"
 				type="text"
 				name="title"
 				maxlength="10"
 			/>
 		</div>
 		<div class="w-full">
-			<div>content</div>
+			<div class="text-left pl-4 text-lg my-4">내용</div>
 			<textarea
-				class="bd-black border-2"
+				class="bd-black border-2 p-4"
 				name="contents"
-				cols="70"
+				cols="72"
 				rows="20"
 				v-model="content"
+				placeholder="내용을 작성하세요"
 			></textarea>
 		</div>
-		<div>
-			<button @click="createArticle">저장</button>
-			<button @click="returnCommunity">돌아가기</button>
+		<div class="flex justify-end">
+			<button
+				class="w-24 h-8 border-2 border-black rounded-lg mx-4"
+				@click="createArticle"
+			>
+				저장
+			</button>
+			<button
+				class="w-24 h-8 border-2 border-black rounded-lg"
+				@click="returnCommunity"
+			>
+				돌아가기
+			</button>
 		</div>
 	</div>
 </template>
@@ -90,7 +101,7 @@ export default {
 
 <style>
 .communityCreate {
-	width: 1000px;
+	width: 700px;
 	height: 700px;
 }
 </style>
