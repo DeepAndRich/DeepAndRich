@@ -24,8 +24,9 @@ def article_list(request):
         if request.user.is_authenticated:
             serializer = ArticleListSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                author = [(request.user.pk, request.user.nickname)]
-                serializer.save(author=author)
+                author_nickname = request.user.nickname
+                author_id = request.user.pk
+                serializer.save(author_nickname=author_nickname, author_id= author_id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
                 return JsonResponse({'message': 'Invalid'})
@@ -61,10 +62,11 @@ def comment_list(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
         if request.user.is_authenticated:
-            author = (request.user.pk, request.user.nickname)
+            author_nickname = request.user.nickname
+            author_id = request.user.pk
             serializer = CommentSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                serializer.save(article=article, author=author)
+                serializer.save(article=article, author_nickname=author_nickname, author_id=author_id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
     elif request.method == 'GET':
         comments = article.comment_set.all()
