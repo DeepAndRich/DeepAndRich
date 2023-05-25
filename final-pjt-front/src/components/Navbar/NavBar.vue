@@ -57,7 +57,7 @@ export default {
 					title: '예 적금 비교',
 				},
 				{
-					URL: '/algorithm',
+					URL: '/recommend',
 					title: '추천 알고리즘',
 				},
 				{

@@ -4,6 +4,7 @@ import store from '@/store/index';
 import MainView from '../views/MainView.vue';
 import ProfileView from '@/views/ProfileView';
 import FinanceView from '@/views/FinanceView';
+import RecommendView from '@/views/RecommendView';
 import CommunityView from '@/views/CommunityView';
 import CommunityCreate from '@/views/CommunityCreate';
 import CommunityDetail from '@/views/CommunityDetailView';
@@ -28,6 +29,11 @@ const routes = [
 		path: '/finance',
 		name: 'finance',
 		component: FinanceView,
+	},
+	{
+		path: '/recommend',
+		name: 'recommend',
+		component: RecommendView,
 	},
 	{
 		path: '/community',
