@@ -36,7 +36,7 @@
 				</div>
 				<div class="image-container w-3/12">
 					<span>느리지만 확실하게, 원하는 용도로 자유롭게</span>
-					<img src="@/assets/img/breststroke.gif/" />
+					<img src="@/assets/img/breaststroke.gif/" />
 				</div>
 				<div class="image-container w-3/12">
 					<span>유유자적 돈 버는 게 제일 쉬웠어요...</span>

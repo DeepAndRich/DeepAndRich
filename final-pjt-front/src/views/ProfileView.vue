@@ -13,9 +13,10 @@
 		</div>
 		<div class="w-9/12 p-7">
 			<div>안녕하세요</div>
-			<div>
+			<div v-if="getUserType">
 				<img :src="getUserType" alt="" />
 			</div>
+			<div v-else>아직 유형이 없습니다.</div>
 		</div>
 		<ProfileSwiper :items="products" />
 	</div>
@@ -58,6 +59,9 @@ export default {
 		},
 		getUserType() {
 			console.log(this.userType);
+			if (this.userType == null) {
+				return false;
+			}
 			// return this.userType;
 
 			return require(`@/assets/img/${this.userType}.gif`);

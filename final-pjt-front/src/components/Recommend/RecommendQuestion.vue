@@ -221,7 +221,8 @@ export default {
 						nickname: this.user.nickname,
 						region: this.user.region,
 						personal_type: this.answer,
-						realname: '와',
+						// realname: this.user.realname,
+						realname: '천우희',
 					},
 					{
 						headers: {
