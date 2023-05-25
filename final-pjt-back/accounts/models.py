@@ -60,7 +60,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if region:
             user_field(user, "region", region)
         if realname:
-            user_field(user, "user_id", user_id)
+            user_field(user, "user_id", realname)
      
         if "password1" in data:
             user.set_password(data["password1"])
