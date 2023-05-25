@@ -8,7 +8,7 @@
 import BankLocation from '@/components/Others/BankLocation.vue';
 
 export default {
-	name: 'OthersView',
+	name: 'BanksView',
 	components: {
 		BankLocation,
 	},

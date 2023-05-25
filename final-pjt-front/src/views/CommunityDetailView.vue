@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1>상세페이지</h1>
-		<div>
+		<div v-if="getUserCheck">
 			<button v-if="getLikeUsers" @click="likeArticle">좋아요!</button>
 			<button v-else @click="likeArticle">좋아요 취소</button>
 		</div>
@@ -80,7 +80,7 @@ export default {
 			modifyCheck: false,
 			inputComment: '',
 			userToken: localStorage.getItem('token'),
-			user: localStorage.getItem('user'),
+			user: this.$store.getters.getUser,
 			isChecked: false,
 			likeUsers: [],
 		};
@@ -97,10 +97,14 @@ export default {
 			}
 		},
 		getUserCheck() {
-			return this.isChecked;
+			console.log(this.user, '???');
+			if (this.article.author == JSON.parse(this.user)?.nickname) {
+				return true;
+			}
+			return false;
 		},
 		getLikeUsers() {
-			if (this.likeUsers.includes(JSON.parse(this.user).pk)) {
+			if (this.likeUsers.includes(JSON.parse(this.user)?.pk)) {
 				// this.getArticle();
 
 				return false;
@@ -113,7 +117,7 @@ export default {
 	},
 	methods: {
 		userCheck() {
-			if (this.article.author == JSON.parse(this.user).pk) {
+			if (this.article.author == JSON.parse(this.user)?.pk) {
 				return true;
 			} else {
 				return false;
@@ -128,6 +132,7 @@ export default {
 				})
 				.then(res => {
 					console.log(res);
+					this.getArticle();
 				})
 				.catch(err => {
 					console.log(err);
@@ -142,7 +147,6 @@ export default {
 				.then(res => {
 					console.log(res);
 					this.article = res.data;
-					this.isChecked = this.userCheck();
 					this.likeUsers = res.data.like_users;
 				})
 				.catch(err => {
@@ -155,7 +159,6 @@ export default {
 				.then(res => {
 					console.log(res);
 					this.$router.push('/community');
-					// this.$emit('comment-deleted');
 				})
 				.catch(err => {
 					console.log(err);

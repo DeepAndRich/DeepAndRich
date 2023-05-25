@@ -11,6 +11,7 @@ export default new Vuex.Store({
 		showSignUpState: false,
 		mainDeposit: {},
 		mainSavings: {},
+		profile: false,
 	},
 	getters: {
 		getUser(state) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
 			return function (index) {
 				return state.mainSavings[index];
 			};
+		},
+		getProfileCheck(state) {
+			return state.profile;
 		},
 	},
 	mutations: {
@@ -50,6 +54,9 @@ export default new Vuex.Store({
 		saveMainSavings(state, payload) {
 			state.mainSavings = payload;
 			// Vue.set(state.mainSavings, month, payload);
+		},
+		setProfile(state, payload) {
+			state.profile = payload;
 		},
 	},
 	actions: {},

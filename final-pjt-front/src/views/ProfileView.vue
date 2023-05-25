@@ -1,6 +1,6 @@
 <template>
 	<div class="profileView flex flex-wrap">
-		<button @click="check">asdfsf</button>
+		<!-- <button @click="check">asdfsf</button> -->
 		<div class="w-5/12 flex items-center flex-wrap p-7 text-left">
 			<div class="profileImage w-40 h-40 mb-4"></div>
 			<div class="w-full">{{ user.nickname }}</div>
@@ -36,6 +36,12 @@ export default {
 			user: JSON.parse(localStorage.getItem('user')),
 			products: [],
 		};
+	},
+	beforeCreate() {
+		this.$store.commit('setProfile', true);
+	},
+	destroyed() {
+		this.$store.commit('setProfile', false);
 	},
 	created() {
 		this.getUserProducts();
