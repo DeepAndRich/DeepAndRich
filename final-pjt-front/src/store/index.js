@@ -12,6 +12,7 @@ export default new Vuex.Store({
 		mainDeposit: {},
 		mainSavings: {},
 		profile: false,
+		modifyProfile: false,
 		havingProducts: [],
 	},
 	getters: {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
 		},
 		getHavingProducts(state) {
 			return state.havingProducts;
+		},
+		getModifyProfile(state) {
+			return state.modifyProfile;
 		},
 	},
 	mutations: {
@@ -64,6 +68,9 @@ export default new Vuex.Store({
 		},
 		setHavingProducts(state, payload) {
 			state.havingProducts = payload;
+		},
+		setModifyProfile(state, payload) {
+			state.modifyProfile = payload;
 		},
 	},
 	actions: {},

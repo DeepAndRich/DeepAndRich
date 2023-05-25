@@ -32,6 +32,7 @@
 					</button>
 					<button
 						v-else
+						@click="showModifyProfile"
 						class="mx-2 w-40 h-10 font-bold bg-themeyellow rounded-lg"
 					>
 						유저 정보 수정
@@ -93,6 +94,9 @@ export default {
 		},
 		goToProfile() {
 			this.$router.push('/profile');
+		},
+		showModifyProfile() {
+			this.$store.commit('setModifyProfile', true);
 		},
 	},
 	computed: {

@@ -1,8 +1,9 @@
 <template>
 	<div class="profileView flex flex-wrap">
-		{{ user.personal_type }}
-		<button @click="check">asdfsf</button>
-		<div class="w-5/12 flex items-center flex-wrap p-7 text-left">
+		<div class="modal" v-if="getModifyProfile" @click.self="closeDetail">
+			<ModifyProfileVue @profile-modified="updateProfile" />
+		</div>
+		<div class="w-3/12 flex items-center flex-wrap p-7 text-left">
 			<div class="profileImage w-40 h-40 mb-4"></div>
 			<div class="w-full">{{ user.nickname }}</div>
 			<div class="w-full">{{ user.email }}</div>
@@ -10,18 +11,13 @@
 			<div class="w-full">{{ user.age }}세</div>
 			<div>{{ user.personal_type }}</div>
 		</div>
-		<div class="w-7/12 p-7">
+		<div class="w-9/12 p-7">
+			<div>안녕하세요</div>
 			<div>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, ut?
-				Aspernatur ex, odio expedita molestias dicta ratione velit. Ipsam
-				necessitatibus praesentium consequuntur corporis quae quas maiores iste
-				id saepe eum?
+				<img :src="getUserType" alt="" />
 			</div>
 		</div>
 		<ProfileSwiper :items="products" />
-		<div>
-			<ModifyProfileVue />
-		</div>
 	</div>
 </template>
 
@@ -41,7 +37,10 @@ export default {
 	data() {
 		return {
 			user: JSON.parse(localStorage.getItem('user')),
+			userToken: localStorage.getItem('token'),
 			products: [],
+			userType: 'freestyle',
+			showDetail: this.$store.getters.getModifyProfile,
 		};
 	},
 	beforeCreate() {
@@ -53,16 +52,56 @@ export default {
 	created() {
 		this.getUserProducts();
 	},
+	computed: {
+		getModifyProfile() {
+			return this.$store.getters.getModifyProfile;
+		},
+		getUserType() {
+			console.log(this.userType);
+			// return this.userType;
+
+			return require(`@/assets/img/${this.userType}.gif`);
+		},
+	},
 	methods: {
 		check() {
 			console.log(this.user, '???');
 		},
-		getUserProducts() {
-			axios
+		checkModal() {},
+		async getUserProducts() {
+			await axios
 				.get(URL + this.user.pk + '/myproduct/')
 				.then(res => {
 					console.log(res);
 					this.products = res.data;
+					this.userType = this.user.personal_type;
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+		openDetail() {
+			this.showDetail = true;
+			console.log('체크');
+		},
+		closeDetail() {
+			this.$store.commit('setModifyProfile', false);
+			this.showDetail = false;
+		},
+		updateProfile() {
+			axios
+				.get('http://127.0.0.1:8000/dj-rest-auth/user/', {
+					headers: {
+						Authorization: `Token ${this.userToken}`,
+					},
+				})
+				.then(res => {
+					const user = res.data;
+					localStorage.removeItem('user');
+					localStorage.setItem('user', JSON.stringify(user));
+					this.$store.commit('setUser', user);
+					this.$store.commit('setModifyProfile', false);
+					this.$router.go(0);
 				})
 				.catch(err => {
 					console.log(err);
