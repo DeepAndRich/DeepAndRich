@@ -95,6 +95,6 @@ class CustomUserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'pk','realname','age','nickname','asset','region',
+            'pk','realname','age','nickname','asset','region', 'personal_type',
         )
         read_only_fields = ('pk',)
