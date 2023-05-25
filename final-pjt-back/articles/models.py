@@ -7,7 +7,8 @@ from django.conf import settings
 
 # Create your models here.
 class Article(models.Model):
-    author = models.CharField(max_length=20, blank=True)
+    author_nickname = models.CharField(max_length=20, blank=True)
+    author_id = models.IntegerField(blank=True)
     title = models.CharField(max_length=50)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -22,4 +23,5 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    author = models.CharField(max_length=20, blank=True)
+    author_nickname = models.CharField(max_length=20, blank=True)
+    author_id = models.IntegerField(blank=True)
