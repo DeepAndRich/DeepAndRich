@@ -40,21 +40,28 @@ def save_saving_myproduct(request, product_pk):
 def myproduct(request, user_pk):
   user = User.objects.get(pk=user_pk)
   sub_deposist_products = user.sub_deposit_product.all()
-  sub_saving_produdcts = user.sub_saving_product.all()
+  
   sub_products_list = []
-  for sub_product in sub_deposist_products:
-    sub_product_data = {
-      'id' : sub_product.pk,
-      'fin_prdt_cd': sub_product.fin_prdt_cd,
-      'kor_co_nm' : sub_product.kor_co_nm,
-      'fin_prdt_nm': sub_product.fin_prdt_nm,
-    }
-    sub_products_list.append(sub_product_data)
-
-  # for sub_product in sub_saving_product
-  # return JsonResponse(sub_products_list, safe=False)
-
-
+  if sub_deposist_products:
+    for sub_product in sub_deposist_products:
+      sub_product_data = {
+        'id' : sub_product.pk,
+        'fin_prdt_cd': sub_product.fin_prdt_cd,
+        'kor_co_nm' : sub_product.kor_co_nm,
+        'fin_prdt_nm': sub_product.fin_prdt_nm,
+      }
+      sub_products_list.append(sub_product_data)
+  sub_saving_products = user.sub_saving_product.all()
+  if sub_deposist_products:
+    for sub_product in sub_saving_products:
+      sub_product_data = {
+        'id' : sub_product.pk,
+        'fin_prdt_cd': sub_product.fin_prdt_cd,
+        'kor_co_nm' : sub_product.kor_co_nm,
+        'fin_prdt_nm': sub_product.fin_prdt_nm,
+      }
+      sub_products_list.append(sub_product_data)
+  return JsonResponse(sub_products_list, safe=False)
 
 
 
