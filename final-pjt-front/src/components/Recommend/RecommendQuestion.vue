@@ -1,128 +1,143 @@
 <template>
-	<div>
-		<h3>질문 1: 주식투자를 하고 있다</h3>
-		<label>
-			<input type="radio" value="1" v-model="question1" />
-			1점
-		</label>
-		<label>
-			<input type="radio" value="2" v-model="question1" />
-			2점
-		</label>
-		<label>
-			<input type="radio" value="3" v-model="question1" />
-			3점
-		</label>
-		<label>
-			<input type="radio" value="4" v-model="question1" />
-			4점
-		</label>
-		<label>
-			<input type="radio" value="5" v-model="question1" />
-			5점
-		</label>
+	<div class="recommendQuestions">
+		<swiper class="swiper" :options="swiperOption">
+			<swiper-slide>
+				<h3 class="h-12">주식투자를 하고 있다</h3>
+				<label>
+					<input type="radio" value="1" v-model="question1" />
+					전혀 아니다
+				</label>
+				<label>
+					<input type="radio" value="2" v-model="question1" />
+					조금 아니다
+				</label>
+				<label>
+					<input type="radio" value="3" v-model="question1" />
+					보통이다
+				</label>
+				<label>
+					<input type="radio" value="4" v-model="question1" />
+					조금 그렇다
+				</label>
+				<label>
+					<input type="radio" value="5" v-model="question1" />
+					매우 그렇다
+				</label>
+			</swiper-slide>
+			<swiper-slide>
+				<h3>당장 큰 돈이 들어갈 일이 있다.</h3>
+				<label>
+					<input type="radio" value="1" v-model="question2" />
+					전혀 아니다
+				</label>
+				<label>
+					<input type="radio" value="2" v-model="question2" />
+					조금 아니다
+				</label>
+				<label>
+					<input type="radio" value="3" v-model="question2" />
+					보통이다
+				</label>
+				<label>
+					<input type="radio" value="4" v-model="question2" />
+					조금 그렇다
+				</label>
+				<label>
+					<input type="radio" value="5" v-model="question2" />
+					매우 그렇다
+				</label>
+			</swiper-slide>
+			<swiper-slide>
+				<h3>틀에 박힌 반복되는 일이 나를 힘들게 한다.</h3>
+				<label>
+					<input type="radio" value="1" v-model="question3" />
+					전혀 아니다
+				</label>
+				<label>
+					<input type="radio" value="2" v-model="question3" />
+					조금 아니다
+				</label>
+				<label>
+					<input type="radio" value="3" v-model="question3" />
+					보통이다
+				</label>
+				<label>
+					<input type="radio" value="4" v-model="question3" />
+					조금 그렇다
+				</label>
+				<label>
+					<input type="radio" value="5" v-model="question3" />
+					매우 그렇다
+				</label>
+			</swiper-slide>
+			<swiper-slide>
+				<h3>뚜렷한 취미가 있다.</h3>
+				<label>
+					<input type="radio" value="1" v-model="question4" />
+					전혀 아니다
+				</label>
+				<label>
+					<input type="radio" value="2" v-model="question4" />
+					조금 아니다
+				</label>
+				<label>
+					<input type="radio" value="3" v-model="question4" />
+					보통이다
+				</label>
+				<label>
+					<input type="radio" value="4" v-model="question4" />
+					조금 그렇다
+				</label>
+				<label>
+					<input type="radio" value="5" v-model="question4" />
+					매우 그렇다
+				</label>
+			</swiper-slide>
+			<swiper-slide>
+				<h3>여행은 포기 못해.</h3>
+				<label>
+					<input type="radio" value="1" v-model="question5" />
+					전혀 아니다
+				</label>
+				<label>
+					<input type="radio" value="2" v-model="question5" />
+					조금 아니다
+				</label>
+				<label>
+					<input type="radio" value="3" v-model="question5" />
+					보통이다
+				</label>
+				<label>
+					<input type="radio" value="4" v-model="question5" />
+					조금 그렇다
+				</label>
+				<label>
+					<input type="radio" value="5" v-model="question5" />
+					매우 그렇다
+				</label>
 
-		<!-- 나머지 질문들에 대한 라디오 버튼도 동일한 방식으로 작성 -->
+				<div>
+					<button
+						class="w-64 h-12 rounded-lg text-white text-xl mt-8 bg-themeBlue"
+						@click="saveAnswers"
+					>
+						결과 확인하기
+					</button>
+				</div>
+			</swiper-slide>
 
-		<!-- 예시로 질문 2 추가 -->
-		<h3>질문 2: 당장 큰 돈이 들어갈 일이 있다.</h3>
-		<label>
-			<input type="radio" value="1" v-model="question2" />
-			1점
-		</label>
-		<label>
-			<input type="radio" value="2" v-model="question2" />
-			2점
-		</label>
-		<label>
-			<input type="radio" value="3" v-model="question2" />
-			3점
-		</label>
-		<label>
-			<input type="radio" value="4" v-model="question2" />
-			4점
-		</label>
-		<label>
-			<input type="radio" value="5" v-model="question2" />
-			5점
-		</label>
-
-		<h3>질문 3: 틀에 박힌 반복되는 일이 나를 힘들게 한다.</h3>
-		<label>
-			<input type="radio" value="1" v-model="question3" />
-			1점
-		</label>
-		<label>
-			<input type="radio" value="2" v-model="question3" />
-			2점
-		</label>
-		<label>
-			<input type="radio" value="3" v-model="question3" />
-			3점
-		</label>
-		<label>
-			<input type="radio" value="4" v-model="question3" />
-			4점
-		</label>
-		<label>
-			<input type="radio" value="5" v-model="question3" />
-			5점
-		</label>
-
-		<h3>질문 4: 뚜렷한 취미가 있다.</h3>
-		<label>
-			<input type="radio" value="1" v-model="question4" />
-			1점
-		</label>
-		<label>
-			<input type="radio" value="2" v-model="question4" />
-			2점
-		</label>
-		<label>
-			<input type="radio" value="3" v-model="question4" />
-			3점
-		</label>
-		<label>
-			<input type="radio" value="4" v-model="question4" />
-			4점
-		</label>
-		<label>
-			<input type="radio" value="5" v-model="question4" />
-			5점
-		</label>
-
-		<h3>질문 5: 여행은 포기 못해.</h3>
-		<label>
-			<input type="radio" value="1" v-model="question5" />
-			1점
-		</label>
-		<label>
-			<input type="radio" value="2" v-model="question5" />
-			2점
-		</label>
-		<label>
-			<input type="radio" value="3" v-model="question5" />
-			3점
-		</label>
-		<label>
-			<input type="radio" value="4" v-model="question5" />
-			4점
-		</label>
-		<label>
-			<input type="radio" value="5" v-model="question5" />
-			5점
-		</label>
-
-		<!-- 나머지 질문들도 동일한 방식으로 작성 -->
-
-		<!-- 저장 버튼 -->
-		<button @click="saveAnswers">저장</button>
+			<div class="swiper-pagination" slot="pagination"></div>
+			<div class="swiper-button-prev" slot="button-prev"></div>
+			<div class="swiper-button-next" slot="button-next"></div>
+		</swiper>
 	</div>
 </template>
 
 <script>
 import axios from 'axios';
 const URL = 'http://127.0.0.1:8000/dj-rest-auth/user/';
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+import 'swiper/css/swiper.css';
 
 export default {
 	data() {
@@ -139,14 +154,36 @@ export default {
 			answer: '',
 			userToken: localStorage.getItem('token'),
 			user: JSON.parse(localStorage.getItem('user')),
+			swiperOption: {
+				pagination: {
+					el: '.swiper-pagination',
+					type: 'progressbar',
+				},
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
+			},
 			// 나머지 질문들에 대한 변수도 동일한 방식으로 선언
 		};
+	},
+	components: {
+		Swiper,
+		SwiperSlide,
 	},
 	methods: {
 		saveAnswers() {
 			// 답변 저장하는 로직을 여기에 작성하면 됩니다.
-			console.log('질문 1의 답변:', this.question1);
-			console.log('질문 2의 답변:', this.question2);
+			if (
+				this.question1 == '' ||
+				this.question2 == '' ||
+				this.question3 == '' ||
+				this.question4 == '' ||
+				this.question5 == ''
+			) {
+				alert('아직 체크하지 않은 질문이 있습니다.');
+				return;
+			}
 
 			this.calculateSecond(this.question2);
 			this.calculateThird(this.question3);
@@ -184,7 +221,7 @@ export default {
 						nickname: this.user.nickname,
 						region: this.user.region,
 						personal_type: this.answer,
-						realname: '와!',
+						realname: '와',
 					},
 					{
 						headers: {
@@ -194,6 +231,25 @@ export default {
 				)
 				.then(res => {
 					console.log(res);
+					console.log(res, 'why');
+					this.$emit('save-type');
+					axios
+						.get('http://127.0.0.1:8000/dj-rest-auth/user/', {
+							headers: {
+								Authorization: `Token ${this.userToken}`,
+							},
+						})
+						.then(res => {
+							const user = res.data;
+							localStorage.removeItem('user');
+							localStorage.setItem('user', JSON.stringify(user));
+							this.$store.commit('setUser', user);
+							this.$store.commit('setModifyProfile', false);
+							this.$router.go(0);
+						})
+						.catch(err => {
+							console.log(err);
+						});
 				})
 				.catch(err => {
 					console.log(err);
@@ -311,3 +367,28 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.recommendQuestions {
+	margin: 0 auto;
+	width: 900px;
+}
+.recommendQuestions h3 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+}
+.swiper-slide {
+	padding: 3rem 1rem 0 1rem;
+}
+.recommendQuestions label {
+	font-size: 1.5rem;
+	margin: 0 1rem;
+	cursor: pointer;
+}
+.recommendQuestions input {
+	width: 1rem;
+}
+.recommendQuestions .swiper {
+	height: 16rem;
+}
+</style>
