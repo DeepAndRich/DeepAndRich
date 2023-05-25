@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="square-box"
+		class="square-box cursor-pointer"
 		:class="{ expanded: isExpanded }"
 		@mouseenter="expandBox"
 		@mouseleave="shrinkBox"
@@ -13,9 +13,9 @@
 				class="list-item p-2"
 				:class="{ flipped: isFlipped(index) }"
 			>
-				<span :class="{ 'list-item-content': !isExpanded }">{{
-					item.fin_prdt_cd.fin_prdt_nm
-				}}</span>
+				<span class="text-left" :class="{ 'list-item-content': !isExpanded }">
+					{{ item.fin_prdt_cd.fin_prdt_nm }}</span
+				>
 			</div>
 		</div>
 	</div>
@@ -72,13 +72,13 @@ export default {
 	border-radius: 8px;
 	transition: height 0.5s;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	/* justify-content: center; */
+	/* align-items: center; */
 	box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
 }
 
 .square-box.expanded {
-	height: 500px;
+	height: 15rem !important;
 }
 
 .placeholder {
@@ -99,22 +99,24 @@ export default {
 	/* justify-content: center; */
 	/* align-items: center; */
 	text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);
-	align-items: center;
+	text-align: left;
+	/* align-items: center; */
 }
 
 .list-item {
 	width: 100%;
-	height: 100px;
-	text-align: center;
+	height: 4rem !important;
+	/* text-align: center; */
 	color: #000;
 	opacity: 0;
 	/* background-color: #000; */
+	text-align: left !important;
 	transition: transform 0.5s;
 	transform: rotateX(-180deg);
 	list-style-type: none; /* ::marker 제거 */
 	margin: 0;
 	padding: 0;
-	font-size: 24px;
+	font-size: 20px !important;
 }
 
 .list-item-content {

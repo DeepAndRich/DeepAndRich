@@ -2,17 +2,17 @@
 	<div class="financeBackGround h-screen p-4">
 		<!-- <button @click="click">데이터 받아오기</button> -->
 		<div
-			class="bg-white w-7/12 h-10 drop-shadow-md rounded-md mx-auto flex justify-center items-center"
+			class="w-7/12 h-14 drop-shadow-md rounded-md mx-auto flex justify-center items-center"
 		>
 			<select
-				class="mx-2 border-2 border-themeBlue rounded-lg h-8"
+				class="mx-2 rounded-lg h-12 bg-black text-white"
 				v-model="selectedFinance"
 			>
 				<option value="정기예금">정기예금</option>
 				<option value="정기적금">정기적금</option>
 			</select>
 			<select
-				class="mx-2 border-2 border-themeBlue rounded-lg"
+				class="mx-2 rounded-lg text-white bg-black brounded-lg"
 				v-model="selectedMonth"
 			>
 				<option value="6">6개월</option>
@@ -20,20 +20,21 @@
 				<option value="24">24개월</option>
 				<option value="36">36개월</option>
 			</select>
-			<select
-				class="mx-2 border-2 border-themeBlue rounded-lg"
-				v-model="selectedTax"
-			>
+			<select class="mx-2 text-white bg-black rounded-lg" v-model="selectedTax">
 				<option value="15.4">일반과세 15.4%</option>
 				<option value="9.5">세금우대 9.5%</option>
 			</select>
 			<input
-				class="border-2 h-8 border-themeBlue rounded-lg pl-2"
+				class="border-2 text-white h-8 bg-black rounded-lg pl-2"
 				type="text"
 				v-model="inputMoney"
 				id="inputMoney"
 			/>
-			<label class="rounded-lg w-8 text-center" for="inputMoney">원</label>
+			<label
+				class="rounded-lg w-8 text-white bg-black text-center"
+				for="inputMoney"
+				>원</label
+			>
 		</div>
 		<div
 			class="billBoard bg-black rounded-lg mt-10 p-3"
@@ -130,5 +131,8 @@ export default {
 }
 .financeBackGround label {
 	margin-left: -3rem;
+}
+.financeBackGround input {
+	border: 2px solid black;
 }
 </style>
