@@ -18,7 +18,34 @@
 		</div>
 		<!-- {{ getDepositArray }} -->
 		<div class="mainBtmContainer">
-			<button>추천알고르즘으로 가기</button>
+			<div style="font-size: 30px">
+				<h2>나에게 어울리는 스타일은?</h2>
+			</div>
+			<div
+				style="
+					max-width: 800px;
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: center;
+				"
+			>
+				<div class="image-container" style="flex-basis: 50%">
+					<span>어떤 방식이든 자유롭게 자유형</span>
+					<img src="@/assets/img/freestyle.gif/" />
+				</div>
+				<div class="image-container" style="flex-basis: 50%">
+					<span>느리지만 확실하게, 원하는 용도로 자유롭게</span>
+					<img src="@/assets/img/breststroke.gif/" />
+				</div>
+				<div class="image-container" style="flex-basis: 50%">
+					<span>유유자적 돈 버는 게 제일 쉬웠어요...</span>
+					<img src="@/assets/img/backstroke.gif/" />
+				</div>
+				<div class="image-container" style="flex-basis: 50%">
+					<span>압도적인 추진력! 저 먼저 갑니다</span>
+					<img src="@/assets/img/butterfly.gif/" />
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -122,7 +149,7 @@ export default {
 .mainBtmContainer {
 	margin: 0 auto;
 	width: 1200px;
-	height: 350px;
+	height: 1300px;
 	background-color: #fff;
 	box-shadow: -8px 8px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 28px;
