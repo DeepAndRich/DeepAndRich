@@ -89,7 +89,7 @@ export default {
 			localStorage.removeItem('token');
 			localStorage.removeItem('user');
 			console.log('로그아웃');
-			this.$router.push('/');
+			this.$router.go(0);
 		},
 		goToProfile() {
 			this.$router.push('/profile');
