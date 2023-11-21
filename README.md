@@ -1,5 +1,4 @@
-# SSAFY 9기 1학기 FinalPJT입니당
-
+# DeepAndRich
 
 # 1. 목표와 기능
 
